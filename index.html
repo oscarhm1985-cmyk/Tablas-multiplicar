@@ -82,7 +82,6 @@ button:focus-visible,summary:focus-visible,input:focus-visible{outline:3px solid
 .btn-main{background:var(--green);color:#fff}
 .btn-main:disabled{opacity:.45}
 .btn-soft{background:var(--blue-soft);color:var(--blue)}
-.btn-wa{background:#25D366;color:#fff}
 .btn-ghost{background:transparent;border:1.5px solid var(--line)}
 .btn-danger{background:transparent;color:var(--red);border:1.5px solid var(--red)}
 .stack{display:grid;gap:10px;margin-bottom:14px}
@@ -228,7 +227,7 @@ input.tg:checked::after{transform:translateX(22px)}
 const $app=document.getElementById('app');
 const KEY='tablas_v2';
 const EMOJIS=['👧','👦','🧒','🦄','🐯','🐼','🚀','⚽','🌟','🎨'];
-const DEF_SETTINGS={sound:true,vibrate:true,histMax:30,wa:'',offerSend:true,repeatFails:true};
+const DEF_SETTINGS={sound:true,vibrate:true,histMax:30,repeatFails:true};
 let view='home',quiz=null,lastResult=null,tickId=null,actx=null,pinState=null;
 
 /* ========== Utilidades ========== */
@@ -695,20 +694,7 @@ function groupDetails(items){
       <ul class="ops">${g.map(opRow).join('')}</ul></details>`;
   }).join('');
 }
-function shareText(a){
-  const p=prof(),w=a.items.filter(i=>!i.ok),rs=reviewSummary(a),pc=pct(a.correct,a.total);
-  let s=`📚 Tablas de multiplicar · ${p.emoji} ${p.name}\n📅 ${fmtDate(a.date)}\n📝 ${attemptLabel(a)}\n✅ ${a.correct} aciertos · ❌ ${a.total-a.correct} fallos · ${pc}%\n⏱️ ${fmtDur(a.durationSec)}`;
-  if(w.length)s+='\n\nFallos:\n'+w.slice(0,15).map(i=>'• '+plainRow(i)).join('\n')+(w.length>15?`\n…y ${w.length-15} más`:'');
-  if(rs)s+=`\n\n🔁 Repaso final: corrigió ${rs.fixed} de ${rs.total}`;
-  if(a.newMed&&a.newMed.length)s+=`\n🏅 ¡Nueva medalla! ${a.newMed.map(t=>'Tabla del '+t).join(', ')}`;
-  const stk=streak(cur().days);if(stk>1)s+=`\n🔥 ${stk} días seguidos practicando`;
-  return s;
-}
-function waNumber(){let n=(db.settings.wa||'').replace(/\D/g,'');if(n.length===9&&/^[6789]/.test(n))n='34'+n;if(n.startsWith('00'))n=n.slice(2);return n}
-function sendWA(a){
-  const url='https://wa.me/'+waNumber()+'?text='+encodeURIComponent(shareText(a));
-  const w=window.open(url,'_blank');if(!w)location.href=url;
-}
+
 function renderResults(a){
   view='results';
   const p=pct(a.correct,a.total),[em,title]=headline(p),wrong=a.items.filter(i=>!i.ok&&i.t),rs=reviewSummary(a);
@@ -729,7 +715,6 @@ function renderResults(a){
   ${a.newMed&&a.newMed.length?`<div class="banner gold">🏅 ¡Nueva medalla! Ya dominas ${a.newMed.map(t=>'la tabla del '+t).join(', ')}.</div>`:''}
   ${rs?`<div class="banner info">🔁 Repaso final: ha corregido ${rs.fixed} de ${rs.total}.</div>`:''}
   <div class="stack">
-    ${db.settings.offerSend?`<button class="btn btn-wa" data-act="send">Enviar resultado por WhatsApp</button>`:''}
     ${wrong.length?`<button class="btn btn-soft" data-act="retry-fails">Practicar los fallos</button>`:''}
     <button class="btn btn-main" data-act="again">Jugar otra vez</button>
   </div>
@@ -888,11 +873,6 @@ function renderParents(){
     <label class="sw"><span>Sonido</span><input type="checkbox" class="tg" data-set="sound" ${s.sound?'checked':''}></label>
     <label class="sw"><span>Vibración</span><input type="checkbox" class="tg" data-set="vibrate" ${s.vibrate?'checked':''}></label>
   </section>
-  <section class="card"><h2>Resultados por WhatsApp</h2>
-    <label class="sw"><span>Botón de enviar al terminar</span><input type="checkbox" class="tg" data-set="offerSend" ${s.offerSend?'checked':''}></label>
-    <input class="field" id="wa" type="tel" inputmode="tel" placeholder="Tu móvil, ej. 600 123 456" value="${esc(s.wa)}" style="margin-top:6px">
-    <p class="hint" style="margin-top:8px">Si lo dejas vacío, WhatsApp preguntará a quién enviarlo.</p>
-  </section>
   <section class="card"><h2>Historial</h2>
     <p class="hint" style="margin-bottom:10px">Intentos que se guardan por perfil</p>
     <div class="seg three">${[10,30,100].map(n=>`<button data-hm="${n}" aria-pressed="${s.histMax===n}">${n}</button>`).join('')}</div>
@@ -902,7 +882,6 @@ function renderParents(){
     <button class="btn btn-danger" data-act="clear">Borrar historial y progreso de ${esc(p.emoji+' '+p.name)}</button>
   </div>`;
   $app.querySelectorAll('[data-set]').forEach(c=>c.onchange=()=>{s[c.dataset.set]=c.checked;save()});
-  const wa=document.getElementById('wa');wa.onchange=()=>{s.wa=wa.value.trim();save();toast('Número guardado')};
   $app.querySelectorAll('[data-hm]').forEach(b=>b.onclick=()=>{
     s.histMax=+b.dataset.hm;Object.values(db.data).forEach(d=>{d.hist=d.hist.slice(-s.histMax)});save();renderParents();
   });
@@ -938,7 +917,6 @@ function act(a){
     startQuiz(shuffle(qs),'repaso','normal');
   }
   else if(a==='practice-top'){const top=hardest(10);if(top.length)startQuiz(shuffle(top.map(o=>mkQ(o.t,o.f,'normal'))),'repaso','normal')}
-  else if(a==='send'&&lastResult)sendWA(lastResult);
   else if(a==='rev-go'&&quiz){view='quiz';quiz.cur=quiz.revQueue.shift();quiz.qStart=Date.now();renderQuiz()}
   else if(a==='exit'){
     if(!quiz){renderHome();return}
