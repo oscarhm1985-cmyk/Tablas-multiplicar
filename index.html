@@ -72,7 +72,8 @@ button:focus-visible,summary:focus-visible,input:focus-visible{outline:3px solid
 .seg{display:grid;background:var(--bg);border:1.5px solid var(--line);border-radius:12px;padding:3px;gap:2px}
 .seg button{border:0;background:none;padding:8px 4px;border-radius:9px;font-weight:700;font-size:.95rem}
 .seg button[aria-pressed="true"]{background:var(--card);box-shadow:0 1px 2px rgba(0,0,0,.14);color:var(--blue)}
-.seg.timer-seg{grid-template-columns:1.7fr repeat(5,1fr)}
+.seg.timer-seg{grid-template-columns:repeat(5,1fr)}
+.seg.timer-seg button:first-child{grid-column:1/-1}
 .seg.types{grid-template-columns:repeat(3,1fr)}
 .seg.types button{font-family:'Baloo 2',system-ui,sans-serif;font-size:1.05rem;padding:10px 2px}
 .seg.three{grid-template-columns:repeat(3,1fr)}
@@ -282,7 +283,7 @@ function load(){
     const d=x.data[p.id];
     d.prefs=Object.assign(defaultPrefs(),d.prefs||{});
     if(!Array.isArray(d.prefs.tables))d.prefs.tables=[1];
-    if(![0,1,2,3,4,5].includes(d.prefs.timer))d.prefs.timer=0;
+    if(!(Number.isInteger(d.prefs.timer)&&d.prefs.timer>=0&&d.prefs.timer<=10))d.prefs.timer=0;
     if(!['normal','inverso','huecos'].includes(d.prefs.type))d.prefs.type='normal';
     d.hist=Array.isArray(d.hist)?d.hist:[];d.stats=d.stats||{};d.days=Array.isArray(d.days)?d.days:[];
   });
@@ -445,7 +446,7 @@ function renderHome(){
   <section class="card">
     <h2>Tiempo para responder</h2>
     <div class="seg timer-seg" role="group" aria-label="Tiempo por pregunta">
-      ${[0,1,2,3,4,5].map(s=>`<button data-s="${s}" aria-pressed="${pr.timer===s}">${s?s+' s':'Sin límite'}</button>`).join('')}
+      ${[0,1,2,3,4,5,6,7,8,9,10].map(s=>`<button data-s="${s}" aria-pressed="${pr.timer===s}">${s?s+' s':'Sin límite'}</button>`).join('')}
     </div>
     <p class="hint" style="margin-top:10px">${pr.timer?'Si no responde en '+pr.timer+' segundo'+(pr.timer>1?'s':'')+', cuenta como fallo.'+(pr.type==='huecos'?' En «? × ? =» tiene el doble, porque escribe dos cifras.':''):'Puede pensar sin prisa.'}</p>
   </section>
