@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tablas de multiplicar</title>
+<meta name="theme-color" content="#3A6FD8">
+<meta name="description" content="Practica las tablas de multiplicar y consulta el historial de aciertos y fallos.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Tablas">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F6F8FB;--card:#FFFFFF;--ink:#1B2638;--muted:#66728A;--line:#E3E8F0;
+  --green:#1E9E57;--green-soft:#E6F6EC;--red:#D8342C;--red-soft:#FCEAE9;
+  --sun:#E9A800;--sun-soft:#FFF4D6;--blue:#3A6FD8;--blue-soft:#E8EFFC;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#121821;--card:#1B2330;--ink:#EEF2F8;--muted:#9AA6BA;--line:#2A3444;
+    --green:#3CC47A;--green-soft:#173526;--red:#F06A62;--red-soft:#3A1E1D;
+    --sun:#F7C646;--sun-soft:#3A3117;--blue:#7BA2F0;--blue-soft:#1C2A44;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#121821;--card:#1B2330;--ink:#EEF2F8;--muted:#9AA6BA;--line:#2A3444;
+  --green:#3CC47A;--green-soft:#173526;--red:#F06A62;--red-soft:#3A1E1D;
+  --sun:#F7C646;--sun-soft:#3A3117;--blue:#7BA2F0;--blue-soft:#1C2A44;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);
+  font-family:'Nunito',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  font-size:17px;line-height:1.45;-webkit-tap-highlight-color:transparent}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,summary:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.app{max-width:600px;margin:0 auto;padding:12px 16px 40px}
+.display{font-family:'Baloo 2','Nunito',system-ui,sans-serif;letter-spacing:-.01em}
+
+/* Barra superior */
+.top{display:flex;align-items:center;gap:8px;min-height:56px;margin-bottom:8px}
+.top h1{flex:1;margin:0;font-size:1.35rem;font-weight:800}
+.icon-btn{width:44px;height:44px;border:0;border-radius:12px;background:transparent;display:grid;place-items:center;font-size:1.4rem}
+.icon-btn:active{background:var(--line)}
+
+/* Tarjetas */
+.card{background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:16px;margin-bottom:14px}
+.card h2{margin:0 0 12px;font-size:1.1rem;font-weight:800}
+.hint{color:var(--muted);font-size:.95rem;margin:0}
+
+/* Selección de tablas */
+.tgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.tbtn{aspect-ratio:1;border:2px solid var(--line);background:var(--card);border-radius:14px;
+  font-family:'Baloo 2',system-ui,sans-serif;font-size:1.5rem;font-weight:700}
+.tbtn[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
+.row-actions{display:flex;justify-content:space-between;align-items:center;margin-top:12px;gap:8px}
+.link{border:0;background:none;color:var(--blue);font-weight:700;padding:6px 0}
+.seg{display:flex;background:var(--bg);border:1.5px solid var(--line);border-radius:12px;padding:3px}
+.seg button{border:0;background:none;padding:6px 14px;border-radius:9px;font-weight:700}
+.seg button[aria-pressed="true"]{background:var(--card);box-shadow:0 1px 2px rgba(0,0,0,.12)}
+
+.btn{display:block;width:100%;border:0;border-radius:16px;padding:16px;font-weight:800;font-size:1.1rem;text-align:center}
+.btn-main{background:var(--green);color:#fff}
+.btn-main:disabled{opacity:.45}
+.btn-soft{background:var(--blue-soft);color:var(--blue)}
+.btn-ghost{background:transparent;border:1.5px solid var(--line)}
+.btn-danger{background:transparent;color:var(--red);border:1.5px solid var(--red-soft)}
+.stack{display:grid;gap:10px}
+
+.last{display:flex;align-items:center;gap:12px}
+.last .score{font-family:'Baloo 2',system-ui,sans-serif;font-size:2rem;font-weight:800;line-height:1}
+.last .meta{flex:1;color:var(--muted);font-size:.95rem}
+
+/* Juego */
+.progress{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:4px 0 20px}
+.progress i{display:block;height:100%;background:var(--blue);border-radius:99px;transition:width .3s}
+.qcount{flex:1;text-align:center;font-weight:700;color:var(--muted)}
+.question{text-align:center;padding:12px 0 8px}
+.question .op{font-family:'Baloo 2',system-ui,sans-serif;font-weight:800;font-size:clamp(3.6rem,18vw,5.5rem);line-height:1}
+.answer{margin:14px auto 6px;min-width:150px;width:fit-content;padding:4px 22px;border-radius:18px;border:3px dashed var(--line);
+  font-family:'Baloo 2',system-ui,sans-serif;font-weight:800;font-size:3rem;line-height:1.3;min-height:4.3rem}
+.answer.ok{border-style:solid;border-color:var(--green);background:var(--green-soft);color:var(--green)}
+.answer.bad{border-style:solid;border-color:var(--red);background:var(--red-soft);color:var(--red)}
+.feedback{text-align:center;min-height:1.8rem;font-weight:800;font-size:1.1rem}
+.feedback.ok{color:var(--green)}.feedback.bad{color:var(--red)}
+.pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.pad button{height:64px;border:1.5px solid var(--line);background:var(--card);border-radius:16px;
+  font-family:'Baloo 2',system-ui,sans-serif;font-size:1.8rem;font-weight:700}
+.pad button:active{transform:scale(.96);background:var(--blue-soft)}
+.pad .k-ok{background:var(--green);border-color:var(--green);color:#fff;font-family:'Nunito',sans-serif;font-size:1.2rem;font-weight:800}
+.pad .k-del{font-size:1.4rem}
+
+/* Resultados */
+.result-head{text-align:center;padding:10px 0 18px}
+.result-head .emoji{font-size:4rem;line-height:1}
+.result-head h2{margin:8px 0 0;font-size:2.4rem;font-weight:800;line-height:1.1}
+.result-head p{margin:6px 0 0;color:var(--muted);font-size:1.1rem}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px}
+.stat{background:var(--card);border:1.5px solid var(--line);border-radius:16px;padding:14px 6px;text-align:center}
+.stat b{display:block;font-family:'Baloo 2',system-ui,sans-serif;font-size:2rem;font-weight:800;line-height:1.1}
+.stat span{color:var(--muted);font-size:.85rem;font-weight:700}
+.c-green{color:var(--green)}.c-red{color:var(--red)}.c-sun{color:var(--sun)}
+.section-title{margin:22px 0 10px;font-size:1.05rem;font-weight:800}
+
+details.tbl{background:var(--card);border:1.5px solid var(--line);border-radius:16px;margin-bottom:10px;overflow:hidden}
+details.tbl summary{list-style:none;display:flex;align-items:center;gap:8px;padding:14px 16px;cursor:pointer}
+details.tbl summary::-webkit-details-marker{display:none}
+details.tbl summary .name{flex:1;font-weight:800}
+details.tbl summary::after{content:'▾';color:var(--muted);transition:transform .2s}
+details.tbl[open] summary::after{transform:rotate(180deg)}
+.chip{font-size:.85rem;font-weight:800;padding:3px 9px;border-radius:99px;white-space:nowrap}
+.chip.ok{background:var(--green-soft);color:var(--green)}
+.chip.bad{background:var(--red-soft);color:var(--red)}
+.chip.mid{background:var(--sun-soft);color:var(--sun)}
+ul.ops{list-style:none;margin:0;padding:0}
+ul.ops li{display:flex;align-items:center;gap:10px;padding:12px 16px;border-top:1px solid var(--line);font-size:1.1rem}
+ul.ops li .eq{flex:1}
+ul.ops li.wrong{background:var(--red-soft)}
+ul.ops .given{font-size:.9rem;color:var(--red);font-weight:700}
+.mark{font-weight:800;font-size:1.2rem}
+.mark.ok{color:var(--green)}.mark.bad{color:var(--red)}
+
+/* Historial */
+.chart-wrap{overflow-x:auto}
+.chart-wrap svg{display:block;width:100%;height:auto;min-width:300px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.85rem;color:var(--muted);margin-top:6px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:middle}
+.fails li{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line)}
+.fails li:first-child{border-top:0}
+.fails .eq{flex:1;font-family:'Baloo 2',system-ui,sans-serif;font-size:1.3rem;font-weight:700}
+.fails .cnt{color:var(--muted);font-size:.9rem;text-align:right}
+.bytable{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:8px}
+.bytable div{border:1.5px solid var(--line);border-radius:12px;padding:8px;text-align:center}
+.bytable b{display:block;font-family:'Baloo 2',system-ui,sans-serif;font-size:1.4rem;line-height:1.1}
+.bytable span{font-size:.8rem;color:var(--muted);font-weight:700}
+details.att summary .name small{display:block;font-weight:600;color:var(--muted);font-size:.85rem}
+.att-body{padding:4px 16px 14px;border-top:1px solid var(--line)}
+.att-body p{margin:10px 0 0;color:var(--muted);font-size:.95rem}
+.att-body ul.ops li{padding:10px 0}
+.att-body ul.ops li.wrong{background:transparent}
+.empty{text-align:center;padding:30px 10px}
+.empty .emoji{font-size:3rem}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main class="app" id="app"></main>
+<script>
+(function(){
+const $app=document.getElementById('app');
+const KEY_H='tablas_historial_v1',KEY_P='tablas_prefs_v1',MAX_HIST=10;
+let view='home',quiz=null,lastResult=null;
+
+function loadJSON(k,def){try{const r=localStorage.getItem(k);if(!r)return def;const v=JSON.parse(r);return v==null?def:v}catch(e){return def}}
+function saveJSON(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function getHist(){const h=loadJSON(KEY_H,[]);return Array.isArray(h)?h:[]}
+function addHist(a){const h=getHist();h.push(a);saveJSON(KEY_H,h.slice(-MAX_HIST))}
+let prefs=loadJSON(KEY_P,{tables:[1],count:10});
+if(!Array.isArray(prefs.tables))prefs.tables=[1];
+if(![10,20].includes(prefs.count))prefs.count=10;
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function pct(c,n){return n?Math.round(c*100/n):0}
+function level(p){return p>=90?'green':p>=60?'sun':'red'}
+function fmtDur(s){s=Math.max(0,Math.round(s));if(s<60)return s+' s';const m=Math.floor(s/60),r=s%60;return m+' min'+(r?' '+r+' s':'')}
+function fmtDate(iso){const d=new Date(iso);
+  const day=d.toLocaleDateString('es-ES',{weekday:'short',day:'numeric',month:'short'});
+  const t=d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
+  return day.charAt(0).toUpperCase()+day.slice(1)+', '+t}
+function fmtShort(iso){const d=new Date(iso);return d.getDate()+'/'+(d.getMonth()+1)}
+function tablesLabel(a){if(a.mode==='repaso')return 'Repaso de fallos';const t=a.tables||[];return t.length===1?'Tabla del '+t[0]:'Tablas: '+t.join(', ')}
+
+function buildQuestions(tables,count){
+  const pool=[];tables.forEach(t=>{for(let f=1;f<=10;f++)pool.push({t,f})});
+  let qs=[];while(qs.length<count)qs=qs.concat(shuffle(pool.slice()));
+  qs=qs.slice(0,count);
+  for(let i=1;i<qs.length;i++){
+    if(qs[i].t===qs[i-1].t&&qs[i].f===qs[i-1].f){
+      const j=qs.findIndex((q,k)=>k>i&&!(q.t===qs[i].t&&q.f===qs[i].f));
+      if(j>0)[qs[i],qs[j]]=[qs[j],qs[i]];
+    }
+  }
+  return qs;
+}
+function reviewQuestions(list){
+  let qs=shuffle(list.slice(0,10).map(o=>({t:o.t,f:o.f})));
+  if(qs.length<6)qs=qs.concat(shuffle(qs.map(o=>({...o}))));
+  return qs;
+}
+
+/* ---------- Inicio ---------- */
+function renderHome(){
+  view='home';
+  const h=getHist(),last=h[h.length-1];
+  let tb='';for(let t=1;t<=10;t++)tb+=`<button class="tbtn" data-t="${t}" aria-pressed="${prefs.tables.includes(t)}">${t}</button>`;
+  $app.innerHTML=`
+  <header class="top"><h1 class="display">Tablas de multiplicar</h1>
+    <button class="icon-btn" data-act="hist" aria-label="Ver historial">📊</button></header>
+  <section class="card">
+    <h2>¿Qué tablas practicamos hoy?</h2>
+    <div class="tgrid">${tb}</div>
+    <div class="row-actions">
+      <button class="link" data-act="all">${prefs.tables.length===10?'Quitar todas':'Elegir todas'}</button>
+      <div class="seg" role="group" aria-label="Número de preguntas">
+        <button data-c="10" aria-pressed="${prefs.count===10}">10 preguntas</button>
+        <button data-c="20" aria-pressed="${prefs.count===20}">20</button>
+      </div>
+    </div>
+  </section>
+  <div class="stack">
+    <button class="btn btn-main" data-act="start" ${prefs.tables.length?'':'disabled'}>Empezar</button>
+    ${last?`<section class="card" style="margin:6px 0 0">
+      <h2>Último intento</h2>
+      <div class="last">
+        <div class="score c-${level(pct(last.correct,last.total))}">${last.correct}/${last.total}</div>
+        <div class="meta">${tablesLabel(last)}<br>${fmtDate(last.date)}</div>
+      </div>
+      <button class="btn btn-soft" style="margin-top:14px" data-act="hist">Ver los últimos ${h.length} intentos</button>
+    </section>`:''}
+  </div>`;
+  $app.querySelectorAll('.tbtn').forEach(b=>b.onclick=()=>{
+    const t=+b.dataset.t;
+    prefs.tables=prefs.tables.includes(t)?prefs.tables.filter(x=>x!==t):[...prefs.tables,t].sort((a,b)=>a-b);
+    saveJSON(KEY_P,prefs);renderHome();
+  });
+  $app.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>{prefs.count=+b.dataset.c;saveJSON(KEY_P,prefs);renderHome()});
+  bindActs();
+}
+
+/* ---------- Juego ---------- */
+function startQuiz(questions,mode){
+  quiz={questions,idx:0,input:'',items:[],start:Date.now(),qStart:Date.now(),locked:false,mode:mode||'tablas'};
+  renderQuiz();
+}
+function renderQuiz(){
+  view='quiz';
+  const q=quiz.questions[quiz.idx],n=quiz.questions.length;
+  $app.innerHTML=`
+  <header class="top">
+    <button class="icon-btn" data-act="exit" aria-label="Salir">✕</button>
+    <div class="qcount">Pregunta ${quiz.idx+1} de ${n}</div>
+    <span style="width:44px"></span>
+  </header>
+  <div class="progress"><i style="width:${pct(quiz.idx,n)}%"></i></div>
+  <div class="question">
+    <div class="op">${q.t} × ${q.f}</div>
+    <div class="answer" id="ans" aria-live="polite">${quiz.input||'&nbsp;'}</div>
+    <div class="feedback" id="fb"></div>
+  </div>
+  <div class="pad">
+    ${[1,2,3,4,5,6,7,8,9].map(d=>`<button data-k="${d}">${d}</button>`).join('')}
+    <button class="k-del" data-k="del" aria-label="Borrar">⌫</button>
+    <button data-k="0">0</button>
+    <button class="k-ok" data-k="ok">Comprobar</button>
+  </div>`;
+  $app.querySelectorAll('.pad button').forEach(b=>b.onclick=()=>press(b.dataset.k));
+  bindActs();
+}
+function press(k){
+  if(!quiz||quiz.locked)return;
+  if(k==='del')quiz.input=quiz.input.slice(0,-1);
+  else if(k==='ok'){check();return}
+  else if(quiz.input.length<3)quiz.input=(quiz.input+k).replace(/^0+(?=\d)/,'');
+  document.getElementById('ans').innerHTML=quiz.input||'&nbsp;';
+}
+function check(){
+  if(quiz.input==='')return;
+  const q=quiz.questions[quiz.idx],given=parseInt(quiz.input,10),ans=q.t*q.f,ok=given===ans;
+  quiz.items.push({t:q.t,f:q.f,ans,given,ok,ms:Date.now()-quiz.qStart});
+  quiz.locked=true;
+  const a=document.getElementById('ans'),fb=document.getElementById('fb');
+  a.classList.add(ok?'ok':'bad');fb.className='feedback '+(ok?'ok':'bad');
+  fb.textContent=ok?'¡Correcto!':'Era '+ans;
+  setTimeout(next,ok?700:1800);
+}
+function next(){
+  if(view!=='quiz')return;
+  quiz.idx++;
+  if(quiz.idx>=quiz.questions.length){finish();return}
+  quiz.input='';quiz.qStart=Date.now();quiz.locked=false;renderQuiz();
+}
+function finish(){
+  const items=quiz.items,correct=items.filter(i=>i.ok).length;
+  const a={id:Date.now(),date:new Date().toISOString(),mode:quiz.mode,
+    tables:[...new Set(items.map(i=>i.t))].sort((x,y)=>x-y),
+    total:items.length,correct,durationSec:Math.round((Date.now()-quiz.start)/1000),items};
+  addHist(a);lastResult=a;quiz=null;renderResults(a);
+}
+
+/* ---------- Resultados ---------- */
+function headline(p){
+  if(p===100)return['🏆','¡Perfecto!'];
+  if(p>=80)return['⭐','¡Muy bien!'];
+  if(p>=50)return['💪','¡Bien, sigue así!'];
+  return['🌱','¡A seguir practicando!'];
+}
+function tableDetails(items,cls){
+  const groups={};items.forEach(i=>{(groups[i.t]=groups[i.t]||[]).push(i)});
+  return Object.keys(groups).sort((a,b)=>a-b).map((t,ix)=>{
+    const g=groups[t],c=g.filter(i=>i.ok).length,w=g.length-c;
+    return `<details class="tbl ${cls||''}" ${ix===0&&w?'open':''}>
+      <summary><span class="name">Tabla del ${t} · ${c}/${g.length}</span>
+        <span class="chip ok">${c} ✓</span>${w?`<span class="chip bad">${w} ✗</span>`:''}</summary>
+      <ul class="ops">${g.map(opRow).join('')}</ul></details>`;
+  }).join('');
+}
+function opRow(i){
+  return i.ok
+    ?`<li><span class="eq">${i.t} × ${i.f} = ${i.ans}</span><span class="mark ok">✓</span></li>`
+    :`<li class="wrong"><span class="eq">${i.t} × ${i.f} = <b>${i.ans}</b></span><span class="given">puso ${i.given}</span><span class="mark bad">✗</span></li>`;
+}
+function renderResults(a){
+  view='results';
+  const p=pct(a.correct,a.total),[em,title]=headline(p),wrong=a.items.filter(i=>!i.ok);
+  $app.innerHTML=`
+  <header class="top">
+    <button class="icon-btn" data-act="home" aria-label="Volver al inicio">✕</button>
+    <h1 class="display" style="text-align:center">Tablas de multiplicar</h1>
+    <button class="icon-btn" data-act="hist" aria-label="Ver historial">📊</button>
+  </header>
+  <div class="result-head"><div class="emoji">${em}</div>
+    <h2 class="display">${title}</h2>
+    <p>${a.correct} aciertos de ${a.total} preguntas · ${fmtDur(a.durationSec)}</p></div>
+  <div class="stats">
+    <div class="stat"><b class="c-green">${a.correct}</b><span>Aciertos</span></div>
+    <div class="stat"><b class="c-red">${a.total-a.correct}</b><span>Fallos</span></div>
+    <div class="stat"><b>${p}%</b><span>Precisión</span></div>
+  </div>
+  <div class="stack">
+    ${wrong.length?`<button class="btn btn-main" data-act="retry-fails">Practicar los fallos</button>`:''}
+    <button class="btn ${wrong.length?'btn-soft':'btn-main'}" data-act="again">Jugar otra vez</button>
+    <button class="btn btn-ghost" data-act="hist">Ver historial</button>
+  </div>
+  <h3 class="section-title">Detalle por tabla</h3>
+  ${tableDetails(a.items)}`;
+  bindActs();
+}
+
+/* ---------- Historial ---------- */
+function chartSVG(h){
+  const W=320,H=170,top=22,bottom=30,left=8,right=8,n=h.length;
+  const slot=(W-left-right)/n,bw=Math.min(26,slot*.62),ch=H-top-bottom;
+  const col={green:'var(--green)',sun:'var(--sun)',red:'var(--red)'};
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Precisión de los últimos ${n} intentos">`;
+  [0,50,100].forEach(v=>{const y=top+ch-ch*v/100;
+    s+=`<line x1="${left}" x2="${W-right}" y1="${y}" y2="${y}" stroke="var(--line)" stroke-width="1" ${v===50?'stroke-dasharray="3 4"':''}/>`});
+  h.forEach((a,i)=>{
+    const p=pct(a.correct,a.total),bh=Math.max(3,ch*p/100),x=left+slot*i+(slot-bw)/2,y=top+ch-bh;
+    s+=`<rect x="${x}" y="${y}" width="${bw}" height="${bh}" rx="5" fill="${col[level(p)]}"/>`;
+    s+=`<text x="${x+bw/2}" y="${y-6}" text-anchor="middle" font-size="11" font-weight="800" fill="var(--ink)" font-family="Nunito,sans-serif">${p}%</text>`;
+    s+=`<text x="${x+bw/2}" y="${H-10}" text-anchor="middle" font-size="10" fill="var(--muted)" font-family="Nunito,sans-serif">${fmtShort(a.date)}</text>`;
+  });
+  return s+'</svg>';
+}
+function renderHist(){
+  view='hist';
+  const h=getHist();
+  if(!h.length){
+    $app.innerHTML=`<header class="top"><button class="icon-btn" data-act="home" aria-label="Volver">←</button><h1 class="display">Historial</h1></header>
+    <div class="card empty"><div class="emoji">📋</div><h2>Todavía no hay intentos</h2>
+    <p class="hint">Cada ronda terminada se guarda aquí. Se conservan los últimos 10 intentos.</p>
+    <button class="btn btn-main" style="margin-top:16px" data-act="home">Empezar a practicar</button></div>`;
+    bindActs();return;
+  }
+  let totQ=0,totC=0,totMs=0,totSec=0;const ops={},byT={};
+  h.forEach(a=>{totQ+=a.total;totC+=a.correct;totSec+=a.durationSec||0;
+    a.items.forEach(i=>{totMs+=i.ms||0;
+      const k=i.t+'x'+i.f;ops[k]=ops[k]||{t:i.t,f:i.f,ans:i.ans,asked:0,fails:0};ops[k].asked++;if(!i.ok)ops[k].fails++;
+      byT[i.t]=byT[i.t]||{c:0,n:0};byT[i.t].n++;if(i.ok)byT[i.t].c++;})});
+  const avgP=pct(totC,totQ),avgQ=totQ?totMs/totQ/1000:0;
+  const top=Object.values(ops).filter(o=>o.fails>0).sort((a,b)=>b.fails-a.fails||(b.fails/b.asked)-(a.fails/a.asked)).slice(0,6);
+  const trend=h.length>=4?(()=>{const half=Math.floor(h.length/2);
+    const p1=pct(h.slice(0,half).reduce((s,a)=>s+a.correct,0),h.slice(0,half).reduce((s,a)=>s+a.total,0));
+    const p2=pct(h.slice(half).reduce((s,a)=>s+a.correct,0),h.slice(half).reduce((s,a)=>s+a.total,0));
+    const d=p2-p1;return d>=5?`📈 Va mejorando: ${p1}% → ${p2}% entre los primeros y los últimos intentos.`:d<=-5?`📉 Ha bajado un poco: ${p1}% → ${p2}%. Conviene repasar los fallos.`:`➡️ Se mantiene estable, alrededor del ${p2}%.`})():'';
+
+  $app.innerHTML=`
+  <header class="top"><button class="icon-btn" data-act="home" aria-label="Volver">←</button>
+    <h1 class="display">Historial</h1></header>
+  <p class="hint" style="margin:-4px 0 14px">Últimos ${h.length} intento${h.length>1?'s':''} en este dispositivo.</p>
+  <div class="stats">
+    <div class="stat"><b class="c-${level(avgP)}">${avgP}%</b><span>Precisión media</span></div>
+    <div class="stat"><b>${totC}/${totQ}</b><span>Aciertos totales</span></div>
+    <div class="stat"><b>${avgQ.toFixed(1)} s</b><span>Por pregunta</span></div>
+  </div>
+  <section class="card"><h2>Evolución</h2>
+    <div class="chart-wrap">${chartSVG(h)}</div>
+    <div class="legend"><span><i style="background:var(--green)"></i>90% o más</span><span><i style="background:var(--sun)"></i>60–89%</span><span><i style="background:var(--red)"></i>Menos de 60%</span></div>
+    ${trend?`<p class="hint" style="margin-top:12px">${trend}</p>`:''}
+  </section>
+  ${top.length?`<section class="card"><h2>Las que más le cuestan</h2>
+    <ul class="ops fails">${top.map(o=>`<li><span class="eq">${o.t} × ${o.f} = ${o.ans}</span><span class="cnt">falló ${o.fails} de ${o.asked}</span></li>`).join('')}</ul>
+    <button class="btn btn-main" style="margin-top:12px" data-act="practice-top">Practicar estas</button></section>`
+  :`<section class="card"><h2>Las que más le cuestan</h2><p class="hint">Ningún fallo en los últimos intentos. 🎉</p></section>`}
+  <section class="card"><h2>Precisión por tabla</h2>
+    <div class="bytable">${Object.keys(byT).sort((a,b)=>a-b).map(t=>{const p=pct(byT[t].c,byT[t].n);
+      return `<div><b class="c-${level(p)}">${p}%</b><span>Tabla del ${t}</span></div>`}).join('')}</div></section>
+  <h3 class="section-title">Intentos</h3>
+  ${h.slice().reverse().map((a,ix)=>{const p=pct(a.correct,a.total),w=a.items.filter(i=>!i.ok);
+    return `<details class="tbl att">
+      <summary><span class="name">${fmtDate(a.date)}<small>${tablesLabel(a)} · ${fmtDur(a.durationSec)}</small></span>
+        <span class="chip ${level(p)==='green'?'ok':level(p)==='sun'?'mid':'bad'}">${a.correct}/${a.total}</span></summary>
+      <div class="att-body">
+        ${w.length?`<ul class="ops">${w.map(opRow).join('')}</ul>`:'<p>Sin fallos en este intento. 🎉</p>'}
+        <p>${a.correct} aciertos · ${w.length} fallos · ${p}% de precisión</p>
+      </div></details>`}).join('')}
+  <button class="btn btn-danger" style="margin-top:18px" data-act="clear">Borrar historial</button>`;
+  bindActs();
+  $app._top=top;
+}
+
+/* ---------- Acciones ---------- */
+function bindActs(){
+  $app.querySelectorAll('[data-act]').forEach(b=>b.onclick=()=>act(b.dataset.act));
+}
+function act(a){
+  if(a==='hist')renderHist();
+  else if(a==='home')renderHome();
+  else if(a==='all'){prefs.tables=prefs.tables.length===10?[]:[1,2,3,4,5,6,7,8,9,10];saveJSON(KEY_P,prefs);renderHome()}
+  else if(a==='start'&&prefs.tables.length)startQuiz(buildQuestions(prefs.tables,prefs.count),'tablas');
+  else if(a==='exit'){if(confirm('¿Salir de la ronda? No se guardará en el historial.')){quiz=null;renderHome()}}
+  else if(a==='again'){startQuiz(buildQuestions(prefs.tables.length?prefs.tables:[1],prefs.count),'tablas')}
+  else if(a==='retry-fails'&&lastResult){startQuiz(reviewQuestions(lastResult.items.filter(i=>!i.ok)),'repaso')}
+  else if(a==='practice-top'&&$app._top&&$app._top.length){startQuiz(reviewQuestions($app._top),'repaso')}
+  else if(a==='clear'){if(confirm('¿Borrar todo el historial? No se puede deshacer.')){saveJSON(KEY_H,[]);renderHist()}}
+}
+document.addEventListener('keydown',e=>{
+  if(view!=='quiz')return;
+  if(/^[0-9]$/.test(e.key))press(e.key);
+  else if(e.key==='Backspace')press('del');
+  else if(e.key==='Enter')press('ok');
+});
+renderHome();
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))}
+})();
+</script>
+</body>
+</html>
