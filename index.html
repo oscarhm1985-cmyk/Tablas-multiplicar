@@ -181,17 +181,9 @@ function fmtDate(iso){const d=new Date(iso);
 function fmtShort(iso){const d=new Date(iso);return d.getDate()+'/'+(d.getMonth()+1)}
 function tablesLabel(a){if(a.mode==='repaso')return 'Repaso de fallos';const t=a.tables||[];return t.length===1?'Tabla del '+t[0]:'Tablas: '+t.join(', ')}
 
-function buildQuestions(tables,count){
+function buildQuestions(tables){
   const pool=[];tables.forEach(t=>{for(let f=1;f<=10;f++)pool.push({t,f})});
-  let qs=[];while(qs.length<count)qs=qs.concat(shuffle(pool.slice()));
-  qs=qs.slice(0,count);
-  for(let i=1;i<qs.length;i++){
-    if(qs[i].t===qs[i-1].t&&qs[i].f===qs[i-1].f){
-      const j=qs.findIndex((q,k)=>k>i&&!(q.t===qs[i].t&&q.f===qs[i].f));
-      if(j>0)[qs[i],qs[j]]=[qs[j],qs[i]];
-    }
-  }
-  return qs;
+  return shuffle(pool);
 }
 function reviewQuestions(list){
   let qs=shuffle(list.slice(0,10).map(o=>({t:o.t,f:o.f})));
@@ -212,14 +204,11 @@ function renderHome(){
     <div class="tgrid">${tb}</div>
     <div class="row-actions">
       <button class="link" data-act="all">${prefs.tables.length===10?'Quitar todas':'Elegir todas'}</button>
-      <div class="seg" role="group" aria-label="Número de preguntas">
-        <button data-c="10" aria-pressed="${prefs.count===10}">10 preguntas</button>
-        <button data-c="20" aria-pressed="${prefs.count===20}">20</button>
-      </div>
+      <span class="hint">${prefs.tables.length*10} preguntas</span>
     </div>
   </section>
   <div class="stack">
-    <button class="btn btn-main" data-act="start" ${prefs.tables.length?'':'disabled'}>Empezar</button>
+    <button class="btn btn-main" data-act="start" ${prefs.tables.length?'':'disabled'}>${prefs.tables.length?'Empezar · '+prefs.tables.length*10+' preguntas':'Elige al menos una tabla'}</button>
     ${last?`<section class="card" style="margin:6px 0 0">
       <h2>Último intento</h2>
       <div class="last">
@@ -234,7 +223,6 @@ function renderHome(){
     prefs.tables=prefs.tables.includes(t)?prefs.tables.filter(x=>x!==t):[...prefs.tables,t].sort((a,b)=>a-b);
     saveJSON(KEY_P,prefs);renderHome();
   });
-  $app.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>{prefs.count=+b.dataset.c;saveJSON(KEY_P,prefs);renderHome()});
   bindActs();
 }
 
@@ -428,9 +416,9 @@ function act(a){
   if(a==='hist')renderHist();
   else if(a==='home')renderHome();
   else if(a==='all'){prefs.tables=prefs.tables.length===10?[]:[1,2,3,4,5,6,7,8,9,10];saveJSON(KEY_P,prefs);renderHome()}
-  else if(a==='start'&&prefs.tables.length)startQuiz(buildQuestions(prefs.tables,prefs.count),'tablas');
+  else if(a==='start'&&prefs.tables.length)startQuiz(buildQuestions(prefs.tables),'tablas');
   else if(a==='exit'){if(confirm('¿Salir de la ronda? No se guardará en el historial.')){quiz=null;renderHome()}}
-  else if(a==='again'){startQuiz(buildQuestions(prefs.tables.length?prefs.tables:[1],prefs.count),'tablas')}
+  else if(a==='again'){startQuiz(buildQuestions(prefs.tables.length?prefs.tables:[1]),'tablas')}
   else if(a==='retry-fails'&&lastResult){startQuiz(reviewQuestions(lastResult.items.filter(i=>!i.ok)),'repaso')}
   else if(a==='practice-top'&&$app._top&&$app._top.length){startQuiz(reviewQuestions($app._top),'repaso')}
   else if(a==='clear'){if(confirm('¿Borrar todo el historial? No se puede deshacer.')){saveJSON(KEY_H,[]);renderHist()}}
