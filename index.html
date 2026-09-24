@@ -44,106 +44,143 @@ body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);
   font-family:'Nunito',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
   font-size:17px;line-height:1.45;-webkit-tap-highlight-color:transparent}
 button{font:inherit;color:inherit;cursor:pointer}
-button:focus-visible,summary:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
-.app{max-width:600px;margin:0 auto;padding:12px 16px 40px}
+button:focus-visible,summary:focus-visible,input:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.app{max-width:600px;margin:0 auto;padding:12px 16px 48px}
 .display{font-family:'Baloo 2','Nunito',system-ui,sans-serif;letter-spacing:-.01em}
+.num{font-family:'Baloo 2','Nunito',system-ui,sans-serif}
 
-/* Barra superior */
-.top{display:flex;align-items:center;gap:8px;min-height:56px;margin-bottom:8px}
-.top h1{flex:1;margin:0;font-size:1.35rem;font-weight:800}
-.icon-btn{width:44px;height:44px;border:0;border-radius:12px;background:transparent;display:grid;place-items:center;font-size:1.4rem}
+.top{display:flex;align-items:center;gap:6px;min-height:56px;margin-bottom:6px}
+.top h1{flex:1;margin:0;font-size:1.35rem;font-weight:800;line-height:1.15}
+.icon-btn{width:44px;height:44px;border:0;border-radius:12px;background:transparent;display:grid;place-items:center;font-size:1.35rem;flex:none}
 .icon-btn:active{background:var(--line)}
 
-/* Tarjetas */
 .card{background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:16px;margin-bottom:14px}
 .card h2{margin:0 0 12px;font-size:1.1rem;font-weight:800}
 .hint{color:var(--muted);font-size:.95rem;margin:0}
 
-/* Selección de tablas */
+.prof-row{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.pchip{border:1.5px solid var(--line);background:var(--card);border-radius:99px;padding:7px 14px;font-weight:800;max-width:60%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.streak{margin-left:auto;font-weight:800;color:var(--muted);font-size:.95rem;text-align:right}
+
 .tgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
-.tbtn{aspect-ratio:1;border:2px solid var(--line);background:var(--card);border-radius:14px;
+.tbtn{position:relative;aspect-ratio:1;border:2px solid var(--line);background:var(--card);border-radius:14px;
   font-family:'Baloo 2',system-ui,sans-serif;font-size:1.5rem;font-weight:700}
 .tbtn[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
+.tbtn .md{position:absolute;top:-8px;right:-6px;font-size:1rem;line-height:1}
 .row-actions{display:flex;justify-content:space-between;align-items:center;margin-top:12px;gap:8px}
 .link{border:0;background:none;color:var(--blue);font-weight:700;padding:6px 0}
-.seg{display:flex;background:var(--bg);border:1.5px solid var(--line);border-radius:12px;padding:3px}
-.seg button{border:0;background:none;padding:6px 14px;border-radius:9px;font-weight:700}
-.seg button[aria-pressed="true"]{background:var(--card);box-shadow:0 1px 2px rgba(0,0,0,.12)}
+.seg{display:grid;background:var(--bg);border:1.5px solid var(--line);border-radius:12px;padding:3px;gap:2px}
+.seg button{border:0;background:none;padding:8px 4px;border-radius:9px;font-weight:700;font-size:.95rem}
+.seg button[aria-pressed="true"]{background:var(--card);box-shadow:0 1px 2px rgba(0,0,0,.14);color:var(--blue)}
+.seg.timer-seg{grid-template-columns:1.7fr repeat(5,1fr)}
+.seg.types{grid-template-columns:repeat(3,1fr)}
+.seg.types button{font-family:'Baloo 2',system-ui,sans-serif;font-size:1.05rem;padding:10px 2px}
+.seg.three{grid-template-columns:repeat(3,1fr)}
 
 .btn{display:block;width:100%;border:0;border-radius:16px;padding:16px;font-weight:800;font-size:1.1rem;text-align:center}
 .btn-main{background:var(--green);color:#fff}
 .btn-main:disabled{opacity:.45}
 .btn-soft{background:var(--blue-soft);color:var(--blue)}
+.btn-wa{background:#25D366;color:#fff}
 .btn-ghost{background:transparent;border:1.5px solid var(--line)}
-.btn-danger{background:transparent;color:var(--red);border:1.5px solid var(--red-soft)}
-.stack{display:grid;gap:10px}
+.btn-danger{background:transparent;color:var(--red);border:1.5px solid var(--red)}
+.stack{display:grid;gap:10px;margin-bottom:14px}
 
+.game{display:flex;align-items:center;gap:14px;width:100%;text-align:left;border:2px solid var(--line);background:var(--card);border-radius:20px;padding:18px 16px;margin-bottom:12px}
+.game:active{transform:scale(.98);border-color:var(--blue)}
+.game .gn{flex:none;width:40px;height:40px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-family:'Baloo 2',system-ui,sans-serif;font-weight:800;font-size:1.3rem}
+.game .gt{flex:1;min-width:0}
+.game .gt b{display:block;font-family:'Baloo 2',system-ui,sans-serif;font-size:1.9rem;font-weight:800;line-height:1.1;white-space:nowrap}
+.game .gt small{display:block;color:var(--muted);font-size:.95rem;font-weight:700}
+.game .ga{color:var(--muted);font-size:1.4rem}
+.menu-title{margin:4px 0 12px;font-size:1.15rem;font-weight:800}
 .last{display:flex;align-items:center;gap:12px}
 .last .score{font-family:'Baloo 2',system-ui,sans-serif;font-size:2rem;font-weight:800;line-height:1}
 .last .meta{flex:1;color:var(--muted);font-size:.95rem}
 
 /* Juego */
-.progress{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:4px 0 20px}
+.progress{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:4px 0 18px}
 .progress i{display:block;height:100%;background:var(--blue);border-radius:99px;transition:width .3s}
+.progress.rev i{background:var(--sun)}
 .qcount{flex:1;text-align:center;font-weight:700;color:var(--muted)}
-.question{text-align:center;padding:12px 0 8px}
-.question .op{font-family:'Baloo 2',system-ui,sans-serif;font-weight:800;font-size:clamp(3.6rem,18vw,5.5rem);line-height:1}
+.question{text-align:center;padding:8px 0 4px}
+.op{font-family:'Baloo 2',system-ui,sans-serif;font-weight:800;font-size:clamp(3.4rem,17vw,5.4rem);line-height:1}
+.op-line{font-size:clamp(2.3rem,11.5vw,4rem);display:flex;align-items:center;justify-content:center;gap:.22em;flex-wrap:nowrap;white-space:nowrap}
+.op-line .x{color:var(--muted)}
 .answer{margin:14px auto 6px;min-width:150px;width:fit-content;padding:4px 22px;border-radius:18px;border:3px dashed var(--line);
   font-family:'Baloo 2',system-ui,sans-serif;font-weight:800;font-size:3rem;line-height:1.3;min-height:4.3rem}
-.answer.ok{border-style:solid;border-color:var(--green);background:var(--green-soft);color:var(--green)}
-.answer.bad{border-style:solid;border-color:var(--red);background:var(--red-soft);color:var(--red)}
-.feedback{text-align:center;min-height:1.8rem;font-weight:800;font-size:1.1rem}
+.slot{display:inline-block;min-width:1.45em;padding:0 .18em;border:3px dashed var(--line);border-radius:14px;text-align:center;line-height:1.2;cursor:pointer}
+.slot.empty{color:var(--muted);font-weight:700}
+.slot.active{border-style:solid;border-color:var(--blue);background:var(--blue-soft)}
+.answer.ok,.slot.ok{border-style:solid;border-color:var(--green);background:var(--green-soft);color:var(--green)}
+.answer.bad,.slot.bad{border-style:solid;border-color:var(--red);background:var(--red-soft);color:var(--red)}
+.qhint{margin:12px 0 0;color:var(--muted);font-weight:700;font-size:.95rem}
+.found{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:10px;min-height:1.9rem}
+.found .chip{font-size:1rem;padding:4px 12px}
+.feedback{text-align:center;min-height:1.8rem;font-weight:800;font-size:1.1rem;margin-top:6px}
 .feedback.ok{color:var(--green)}.feedback.bad{color:var(--red)}
-.pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
-.pad button{height:64px;border:1.5px solid var(--line);background:var(--card);border-radius:16px;
+.timer{height:10px;background:var(--line);border-radius:99px;overflow:hidden;margin:8px auto 0;max-width:280px}
+.timer i{display:block;height:100%;width:100%;background:var(--sun);border-radius:99px}
+.timer.low i{background:var(--red)}
+.tsec{text-align:center;font-weight:800;color:var(--muted);font-size:.95rem;margin-top:4px;min-height:1.4rem}
+.pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
+.pad button{height:62px;border:1.5px solid var(--line);background:var(--card);border-radius:16px;
   font-family:'Baloo 2',system-ui,sans-serif;font-size:1.8rem;font-weight:700}
 .pad button:active{transform:scale(.96);background:var(--blue-soft)}
-.pad .k-ok{background:var(--green);border-color:var(--green);color:#fff;font-family:'Nunito',sans-serif;font-size:1.2rem;font-weight:800}
+.pad .k-ok{background:var(--green);border-color:var(--green);color:#fff;font-family:'Nunito',sans-serif;font-size:1.1rem;font-weight:800}
 .pad .k-del{font-size:1.4rem}
+.pad .k-pass{grid-column:1/-1;height:52px;font-family:'Nunito',system-ui,sans-serif;font-size:1.05rem;font-weight:800;color:var(--muted)}
 
 /* Resultados */
-.result-head{text-align:center;padding:10px 0 18px}
+.result-head{text-align:center;padding:8px 0 18px}
 .result-head .emoji{font-size:4rem;line-height:1}
 .result-head h2{margin:8px 0 0;font-size:2.4rem;font-weight:800;line-height:1.1}
-.result-head p{margin:6px 0 0;color:var(--muted);font-size:1.1rem}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px}
+.result-head p{margin:6px 0 0;color:var(--muted);font-size:1.05rem}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
 .stat{background:var(--card);border:1.5px solid var(--line);border-radius:16px;padding:14px 6px;text-align:center}
-.stat b{display:block;font-family:'Baloo 2',system-ui,sans-serif;font-size:2rem;font-weight:800;line-height:1.1}
+.stat b{display:block;font-family:'Baloo 2',system-ui,sans-serif;font-size:1.9rem;font-weight:800;line-height:1.1}
 .stat span{color:var(--muted);font-size:.85rem;font-weight:700}
 .c-green{color:var(--green)}.c-red{color:var(--red)}.c-sun{color:var(--sun)}
+.banner{border-radius:16px;padding:14px 16px;margin-bottom:14px;font-weight:800}
+.banner.gold{background:var(--sun-soft);color:var(--ink);border:1.5px solid var(--sun)}
+.banner.info{background:var(--blue-soft);color:var(--ink)}
 .section-title{margin:22px 0 10px;font-size:1.05rem;font-weight:800}
 
 details.tbl{background:var(--card);border:1.5px solid var(--line);border-radius:16px;margin-bottom:10px;overflow:hidden}
 details.tbl summary{list-style:none;display:flex;align-items:center;gap:8px;padding:14px 16px;cursor:pointer}
 details.tbl summary::-webkit-details-marker{display:none}
-details.tbl summary .name{flex:1;font-weight:800}
+details.tbl summary .name{flex:1;font-weight:800;min-width:0}
 details.tbl summary::after{content:'▾';color:var(--muted);transition:transform .2s}
 details.tbl[open] summary::after{transform:rotate(180deg)}
 .chip{font-size:.85rem;font-weight:800;padding:3px 9px;border-radius:99px;white-space:nowrap}
 .chip.ok{background:var(--green-soft);color:var(--green)}
 .chip.bad{background:var(--red-soft);color:var(--red)}
 .chip.mid{background:var(--sun-soft);color:var(--sun)}
+.chip.pend{background:var(--line);color:var(--muted)}
 ul.ops{list-style:none;margin:0;padding:0}
-ul.ops li{display:flex;align-items:center;gap:10px;padding:12px 16px;border-top:1px solid var(--line);font-size:1.1rem}
+ul.ops li{display:flex;align-items:center;gap:10px;padding:12px 16px;border-top:1px solid var(--line);font-size:1.08rem}
 ul.ops li .eq{flex:1}
 ul.ops li.wrong{background:var(--red-soft)}
-ul.ops .given{font-size:.9rem;color:var(--red);font-weight:700}
+ul.ops .given{font-size:.88rem;color:var(--red);font-weight:700;text-align:right}
 .mark{font-weight:800;font-size:1.2rem}
 .mark.ok{color:var(--green)}.mark.bad{color:var(--red)}
 
 /* Historial */
 .chart-wrap{overflow-x:auto}
-.chart-wrap svg{display:block;width:100%;height:auto;min-width:300px}
-.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.85rem;color:var(--muted);margin-top:6px}
+.chart-wrap svg{display:block;height:auto}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.85rem;color:var(--muted);margin-top:8px}
 .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:middle}
 .fails li{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line)}
 .fails li:first-child{border-top:0}
 .fails .eq{flex:1;font-family:'Baloo 2',system-ui,sans-serif;font-size:1.3rem;font-weight:700}
 .fails .cnt{color:var(--muted);font-size:.9rem;text-align:right}
-.bytable{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:8px}
-.bytable div{border:1.5px solid var(--line);border-radius:12px;padding:8px;text-align:center}
-.bytable b{display:block;font-family:'Baloo 2',system-ui,sans-serif;font-size:1.4rem;line-height:1.1}
-.bytable span{font-size:.8rem;color:var(--muted);font-weight:700}
+.map{display:grid;grid-template-columns:repeat(11,1fr);gap:3px}
+.map .h{font-size:.75rem;font-weight:800;color:var(--muted);display:grid;place-items:center;aspect-ratio:1}
+.map button{aspect-ratio:1;border:0;border-radius:5px;padding:0;background:var(--line)}
+.map .m-green{background:var(--green)}.map .m-sun{background:var(--sun)}.map .m-red{background:var(--red)}
+.medals{display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.medal{aspect-ratio:1;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:.85rem;background:var(--line);color:var(--muted);font-family:'Baloo 2',system-ui,sans-serif}
+.medal.on{background:var(--sun);color:#fff}
 details.att summary .name small{display:block;font-weight:600;color:var(--muted);font-size:.85rem}
 .att-body{padding:4px 16px 14px;border-top:1px solid var(--line)}
 .att-body p{margin:10px 0 0;color:var(--muted);font-size:.95rem}
@@ -151,285 +188,783 @@ details.att summary .name small{display:block;font-weight:600;color:var(--muted)
 .att-body ul.ops li.wrong{background:transparent}
 .empty{text-align:center;padding:30px 10px}
 .empty .emoji{font-size:3rem}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* Padres */
+.sw{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-top:1px solid var(--line)}
+.sw:first-of-type{border-top:0;padding-top:0}
+.sw span{flex:1}
+.sw small{display:block;color:var(--muted);font-size:.85rem}
+input.tg{appearance:none;-webkit-appearance:none;width:52px;height:30px;border-radius:99px;background:var(--line);position:relative;flex:none;cursor:pointer;margin:0;transition:background .2s}
+input.tg::after{content:'';position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.3);transition:transform .2s}
+input.tg:checked{background:var(--green)}
+input.tg:checked::after{transform:translateX(22px)}
+.field{width:100%;font:inherit;padding:12px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);min-width:0}
+.prow{display:flex;gap:8px;align-items:center;margin-bottom:10px}
+.prow .emo{width:48px;height:48px;border:1.5px solid var(--line);background:var(--bg);border-radius:12px;font-size:1.5rem;flex:none}
+.prow .del{width:44px;height:48px;border:0;background:none;color:var(--red);font-size:1.2rem;flex:none}
+.plist button{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:1.5px solid var(--line);background:var(--card);border-radius:16px;padding:14px 16px;margin-bottom:10px;font-weight:800;font-size:1.1rem}
+.plist button[aria-current="true"]{border-color:var(--blue);background:var(--blue-soft)}
+.plist .e{font-size:1.6rem}
+.dots{display:flex;gap:16px;justify-content:center;margin:26px 0 8px}
+.dots i{width:18px;height:18px;border-radius:50%;border:2px solid var(--muted)}
+.dots i.on{background:var(--ink);border-color:var(--ink)}
+.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-8px)}50%{transform:translateX(8px)}75%{transform:translateX(-4px)}}
+.pin-msg{text-align:center;min-height:1.6rem;font-weight:800;color:var(--red)}
+
+.toast{position:fixed;left:0;right:0;bottom:0;padding:0 16px calc(18px + env(safe-area-inset-bottom,0px));display:flex;justify-content:center;pointer-events:none;z-index:10}
+.toast span{background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:14px;font-weight:700;max-width:520px;text-align:center;box-shadow:0 4px 14px rgba(0,0,0,.2);opacity:0;transform:translateY(8px);transition:opacity .2s,transform .2s}
+.toast.show span{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
 <body>
 <main class="app" id="app"></main>
+<div class="toast" id="toast" aria-live="polite"><span></span></div>
 <script>
 (function(){
+'use strict';
 const $app=document.getElementById('app');
-const KEY_H='tablas_historial_v1',KEY_P='tablas_prefs_v1',MAX_HIST=10;
-let view='home',quiz=null,lastResult=null;
+const KEY='tablas_v2';
+const EMOJIS=['👧','👦','🧒','🦄','🐯','🐼','🚀','⚽','🌟','🎨'];
+const DEF_SETTINGS={sound:true,vibrate:true,histMax:30,wa:'',offerSend:true,repeatFails:true};
+let view='home',quiz=null,lastResult=null,tickId=null,actx=null,pinState=null;
 
-function loadJSON(k,def){try{const r=localStorage.getItem(k);if(!r)return def;const v=JSON.parse(r);return v==null?def:v}catch(e){return def}}
-function saveJSON(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
-function getHist(){const h=loadJSON(KEY_H,[]);return Array.isArray(h)?h:[]}
-function addHist(a){const h=getHist();h.push(a);saveJSON(KEY_H,h.slice(-MAX_HIST))}
-let prefs=loadJSON(KEY_P,{tables:[1],count:10});
-if(!Array.isArray(prefs.tables))prefs.tables=[1];
-if(![10,20].includes(prefs.count))prefs.count=10;
-
+/* ========== Utilidades ========== */
+function uid(){return Math.random().toString(36).slice(2,10)}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 function pct(c,n){return n?Math.round(c*100/n):0}
 function level(p){return p>=90?'green':p>=60?'sun':'red'}
-function fmtDur(s){s=Math.max(0,Math.round(s));if(s<60)return s+' s';const m=Math.floor(s/60),r=s%60;return m+' min'+(r?' '+r+' s':'')}
+function chipCls(p){const l=level(p);return l==='green'?'ok':l==='sun'?'mid':'bad'}
+function dayStr(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function fmtDur(s){s=Math.max(0,Math.round(s||0));if(s<60)return s+' s';const m=Math.floor(s/60),r=s%60;return m+' min'+(r?' '+r+' s':'')}
 function fmtDate(iso){const d=new Date(iso);
   const day=d.toLocaleDateString('es-ES',{weekday:'short',day:'numeric',month:'short'});
   const t=d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
   return day.charAt(0).toUpperCase()+day.slice(1)+', '+t}
 function fmtShort(iso){const d=new Date(iso);return d.getDate()+'/'+(d.getMonth()+1)}
-function tablesLabel(a){if(a.mode==='repaso')return 'Repaso de fallos';const t=a.tables||[];return t.length===1?'Tabla del '+t[0]:'Tablas: '+t.join(', ')}
+let toastT=null;
+function toast(msg){const el=document.getElementById('toast');el.querySelector('span').textContent=msg;el.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove('show'),2600)}
 
-function buildQuestions(tables){
-  const pool=[];tables.forEach(t=>{for(let f=1;f<=10;f++)pool.push({t,f})});
-  return shuffle(pool);
+/* ========== Datos ========== */
+function defaultPrefs(){return {tables:[1],timer:0,type:'normal'}}
+function emptyData(){return {hist:[],stats:{},days:[],prefs:defaultPrefs()}}
+function recordStat(stats,t,f,ok){
+  if(!t||!f)return;const k=t+'x'+f;
+  const s=stats[k]||(stats[k]={a:0,c:0,r:[]});
+  s.a++;if(ok)s.c++;s.r.push(ok?1:0);if(s.r.length>5)s.r.shift();
 }
-function reviewQuestions(list){
-  let qs=shuffle(list.slice(0,10).map(o=>({t:o.t,f:o.f})));
-  if(qs.length<6)qs=qs.concat(shuffle(qs.map(o=>({...o}))));
-  return qs;
+function addDay(d,date){const s=dayStr(date||new Date());if(!d.days.includes(s)){d.days.push(s);d.days.sort();if(d.days.length>400)d.days=d.days.slice(-400)}}
+function load(){
+  let x=null;
+  try{x=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){}
+  if(!x||x.v!==2){
+    const id=uid();
+    x={v:2,profiles:[{id,name:'Mi perfil',emoji:'👧'}],current:id,pin:null,settings:Object.assign({},DEF_SETTINGS),data:{}};
+    const d=emptyData();
+    try{ /* migrar la versión anterior */
+      const old=JSON.parse(localStorage.getItem('tablas_historial_v1')||'[]');
+      if(Array.isArray(old)&&old.length){
+        d.hist=old.map(a=>Object.assign({},a,{type:'normal',review:[],items:(a.items||[]).map(i=>Object.assign({},i,{type:'normal',p:i.ans,expect:i.ans}))}));
+        d.hist.forEach(a=>{a.items.forEach(i=>recordStat(d.stats,i.t,i.f,i.ok));addDay(d,new Date(a.date))});
+      }
+      const op=JSON.parse(localStorage.getItem('tablas_prefs_v1')||'null');
+      if(op&&Array.isArray(op.tables))d.prefs.tables=op.tables;
+      if(op&&[0,1,2,3,4,5].includes(op.timer))d.prefs.timer=op.timer;
+    }catch(e){}
+    x.data[id]=d;
+  }
+  if(!Array.isArray(x.profiles)||!x.profiles.length){const id=uid();x.profiles=[{id,name:'Mi perfil',emoji:'👧'}];x.current=id}
+  x.data=x.data||{};
+  x.profiles.forEach(p=>{
+    if(!x.data[p.id])x.data[p.id]=emptyData();
+    const d=x.data[p.id];
+    d.prefs=Object.assign(defaultPrefs(),d.prefs||{});
+    if(!Array.isArray(d.prefs.tables))d.prefs.tables=[1];
+    if(![0,1,2,3,4,5].includes(d.prefs.timer))d.prefs.timer=0;
+    if(!['normal','inverso','huecos'].includes(d.prefs.type))d.prefs.type='normal';
+    d.hist=Array.isArray(d.hist)?d.hist:[];d.stats=d.stats||{};d.days=Array.isArray(d.days)?d.days:[];
+  });
+  if(!x.profiles.find(p=>p.id===x.current))x.current=x.profiles[0].id;
+  x.settings=Object.assign({},DEF_SETTINGS,x.settings||{});
+  return x;
+}
+let db=load();
+function save(){try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){toast('No se ha podido guardar: el almacenamiento está lleno.')}}
+save();
+function cur(){return db.data[db.current]}
+function prof(){return db.profiles.find(p=>p.id===db.current)}
+
+/* ========== Dominio, medallas y rachas ========== */
+function cellStatus(t,f,stats){
+  const s=(stats||cur().stats)[t+'x'+f];if(!s||!s.a)return 'none';
+  const r=s.r;if(r.length>=3&&r.slice(-3).every(v=>v===1))return 'green';
+  const acc=r.reduce((a,b)=>a+b,0)/r.length;return acc>=0.6?'sun':'red';
+}
+function medals(stats){const m=[];for(let t=1;t<=10;t++){let all=true;for(let f=1;f<=10;f++){if(cellStatus(t,f,stats)!=='green'){all=false;break}}if(all)m.push(t)}return m}
+function streak(days){
+  if(!days.length)return 0;const set=new Set(days);const d=new Date();
+  if(!set.has(dayStr(d))){d.setDate(d.getDate()-1);if(!set.has(dayStr(d)))return 0}
+  let n=0;while(set.has(dayStr(d))){n++;d.setDate(d.getDate()-1)}return n;
+}
+function practicedToday(){return cur().days.includes(dayStr(new Date()))}
+
+/* ========== Sonido y vibración ========== */
+function ensureAudio(){
+  if(!db.settings.sound)return;
+  if(!actx){try{actx=new (window.AudioContext||window.webkitAudioContext)()}catch(e){actx=null}}
+  if(actx&&actx.state==='suspended'){try{actx.resume()}catch(e){}}
+}
+function beep(freq,dur,when,type,vol){
+  const o=actx.createOscillator(),g=actx.createGain();o.type=type||'sine';o.frequency.value=freq;
+  const t=actx.currentTime+(when||0);
+  g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(vol||0.18,t+0.012);g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+  o.connect(g);g.connect(actx.destination);o.start(t);o.stop(t+dur+0.03);
+}
+function fx(kind){
+  if(db.settings.vibrate&&navigator.vibrate){try{navigator.vibrate(kind==='ok'?25:kind==='bad'?[70,50,70]:kind==='end'?[40,60,40,60,140]:0)}catch(e){}}
+  if(!db.settings.sound||!actx)return;
+  try{
+    if(kind==='ok'){beep(660,.12,0);beep(990,.18,.1)}
+    else if(kind==='bad'){beep(196,.3,0,'square',.07)}
+    else if(kind==='end'){[523,659,784,1047].forEach((f,i)=>beep(f,.2,i*.12))}
+    else if(kind==='medal'){[784,988,1175,1568].forEach((f,i)=>beep(f,.22,i*.1,'triangle',.16))}
+  }catch(e){}
 }
 
-/* ---------- Inicio ---------- */
-function renderHome(){
-  view='home';
-  const h=getHist(),last=h[h.length-1];
-  let tb='';for(let t=1;t<=10;t++)tb+=`<button class="tbtn" data-t="${t}" aria-pressed="${prefs.tables.includes(t)}">${t}</button>`;
+/* ========== Preguntas ========== */
+function opsFor(tables){const a=[];tables.forEach(t=>{for(let f=1;f<=10;f++)a.push({t,f})});return a}
+function mkQ(t,f,type){
+  const p=t*f;
+  if(type==='inverso'){const hole=Math.random()<.5?'l':'r';return {type:'inverso',t,f,p,hole,expect:hole==='l'?t:f}}
+  return {type:'normal',t,f,p,expect:p};
+}
+function pairsOf(p){const r=[];for(let a=1;a<=10;a++){if(p%a===0){const b=p/a;if(b>=a&&b<=10)r.push([a,b])}}return r}
+function productsFor(tables){return [...new Set(opsFor(tables).map(o=>o.t*o.f))]}
+function buildRound(tables,type){
+  if(type==='huecos')return shuffle(productsFor(tables)).map(p=>({type:'huecos',p,pairs:pairsOf(p),state:pairsOf(p).map(()=>null)}));
+  return shuffle(opsFor(tables)).map(o=>mkQ(o.t,o.f,type));
+}
+function roundSize(tables,type){return type==='huecos'?productsFor(tables).length:tables.length*10}
+function smartOps(n){
+  const st=cur().stats,tabs=new Set(cur().prefs.tables),cand=[];
+  for(let t=1;t<=10;t++)for(let f=1;f<=10;f++){
+    const s=st[t+'x'+f];let w;
+    if(s&&s.a){const acc=s.r.reduce((a,b)=>a+b,0)/s.r.length;w=0.25+(1-acc)*5+(s.a-s.c)/(s.a+1)}
+    else w=tabs.has(t)?0.5:0;
+    if(w>0)cand.push({t,f,w});
+  }
+  const out=[];
+  while(out.length<n&&cand.length){
+    const tot=cand.reduce((a,c)=>a+c.w,0);let r=Math.random()*tot,i=0;
+    for(;i<cand.length-1;i++){r-=cand[i].w;if(r<=0)break}
+    out.push(cand.splice(i,1)[0]);
+  }
+  return out;
+}
+function hardest(limit){
+  const st=cur().stats;
+  return Object.keys(st).map(k=>{const [t,f]=k.split('x').map(Number);const s=st[k];return {t,f,p:t*f,a:s.a,fails:s.a-s.c,status:cellStatus(t,f,st)}})
+    .filter(o=>o.fails>0&&o.status!=='green')
+    .sort((a,b)=>(b.fails/b.a)-(a.fails/a.a)||b.fails-a.fails).slice(0,limit);
+}
+
+/* ========== Textos de filas ========== */
+function eqHTML(i){
+  if(i.type==='inverso')return `${i.hole==='l'?'<b>'+i.t+'</b>':i.t} × ${i.hole==='r'?'<b>'+i.f+'</b>':i.f} = ${i.p}`;
+  if(i.type==='huecos')return i.t?`<b>${i.t} × ${i.f}</b> = ${i.p}`:`? × ? = ${i.p}`;
+  return `${i.t} × ${i.f} = ${i.ok?i.p:'<b>'+i.p+'</b>'}`;
+}
+function givenText(i){
+  if(i.given==null)return i.skip==='tiempo'?'sin tiempo':(i.type==='huecos'?'no la encontró':'pasó');
+  return 'puso '+i.given;
+}
+function opRow(i){
+  return i.ok
+    ?`<li><span class="eq">${eqHTML(i)}</span><span class="mark ok">✓</span></li>`
+    :`<li class="wrong"><span class="eq">${eqHTML(i)}</span><span class="given">${givenText(i)}</span><span class="mark bad">✗</span></li>`;
+}
+function plainRow(i){return eqHTML(i).replace(/<\/?b>/g,'')+(i.ok?'':' ('+givenText(i)+')')}
+function typeName(t){return t==='inverso'?'7 × ? = 56':t==='huecos'?'? × ? = 24':'7 × 8 = ?'}
+function attemptLabel(a){
+  const tb=a.tables||[];
+  const m=a.mode==='repaso'?'Repaso de fallos':a.mode==='inteligente'?'Repaso inteligente':(tb.length===1?'Tabla del '+tb[0]:'Tablas: '+tb.join(', '));
+  return m+(a.type&&a.type!=='normal'?' · '+typeName(a.type):'')+(a.timer?' · '+a.timer+' s':'');
+}
+function reviewSummary(a){
+  const rv=a.review||[];if(!rv.length)return null;
+  const keys={};rv.forEach(i=>{const k=i.type+i.t+'x'+i.f;keys[k]=keys[k]||i.ok});
+  const ks=Object.keys(keys);return {fixed:ks.filter(k=>keys[k]).length,total:ks.length};
+}
+
+/* ========== Inicio ========== */
+function renderMenu(){
+  view='menu';stopTimer();quiz=null;
+  const d=cur(),p=prof(),h=d.hist,last=h[h.length-1],st=streak(d.days);
+  const games=[['normal','Calcula el resultado'],['inverso','Encuentra el número que falta'],['huecos','Encuentra todas las parejas']];
   $app.innerHTML=`
   <header class="top"><h1 class="display">Tablas de multiplicar</h1>
+    <button class="icon-btn" data-act="hist" aria-label="Ver historial">📊</button>
+    <button class="icon-btn" data-act="parents" aria-label="Zona de padres">🔒</button></header>
+  <div class="prof-row">
+    <button class="pchip" data-act="profiles" aria-label="Cambiar de perfil">${p.emoji} ${esc(p.name)} ▾</button>
+    <span class="streak">${st?'🔥 '+st+(st===1?' día':' días seguidos'):'🔥 Practica hoy'}${st&&!practicedToday()?'<br><small>¡Practica hoy para no perderla!</small>':''}</span>
+  </div>
+  <h2 class="menu-title">¿A qué jugamos?</h2>
+  ${games.map(([t,desc],i)=>`<button class="game" data-game="${t}"><span class="gn">${i+1}</span><span class="gt"><b>${typeName(t)}</b><small>${desc}</small></span><span class="ga">›</span></button>`).join('')}
+  ${last?`<section class="card" style="margin-top:6px">
+    <h2>Último intento</h2>
+    <div class="last">
+      <div class="score c-${level(pct(last.correct,last.total))}">${last.correct}/${last.total}</div>
+      <div class="meta">${attemptLabel(last)}<br>${fmtDate(last.date)}</div>
+    </div>
+  </section>`:''}`;
+  $app.querySelectorAll('[data-game]').forEach(b=>b.onclick=()=>{ensureAudio();d.prefs.type=b.dataset.game;save();renderHome()});
+  bindActs();
+}
+function renderHome(){
+  view='home';stopTimer();
+  const d=cur(),p=prof(),pr=d.prefs,h=d.hist,last=h[h.length-1],md=medals(d.stats),st=streak(d.days);
+  const size=roundSize(pr.tables,pr.type);
+  let tb='';for(let t=1;t<=10;t++)tb+=`<button class="tbtn" data-t="${t}" aria-pressed="${pr.tables.includes(t)}" aria-label="Tabla del ${t}${md.includes(t)?', dominada':''}">${t}${md.includes(t)?'<span class="md">🏅</span>':''}</button>`;
+  const typeHint=pr.type==='inverso'?'Busca el número que falta.':pr.type==='huecos'?'Busca las dos cifras que dan ese resultado. Si hay varias formas, tiene que encontrarlas todas.':'Calcula el resultado.';
+  $app.innerHTML=`
+  <header class="top"><button class="icon-btn" data-act="home" aria-label="Elegir otro juego">←</button>
+    <h1 class="display">${typeName(pr.type)}</h1>
     <button class="icon-btn" data-act="hist" aria-label="Ver historial">📊</button></header>
+  <p class="hint" style="margin:-4px 0 14px">${typeHint}</p>
   <section class="card">
     <h2>¿Qué tablas practicamos hoy?</h2>
     <div class="tgrid">${tb}</div>
     <div class="row-actions">
-      <button class="link" data-act="all">${prefs.tables.length===10?'Quitar todas':'Elegir todas'}</button>
-      <span class="hint">${prefs.tables.length*10} preguntas</span>
+      <button class="link" data-act="all">${pr.tables.length===10?'Quitar todas':'Elegir todas'}</button>
+      <span class="hint">${md.length?'🏅 '+md.length+' dominada'+(md.length>1?'s':''):''}</span>
     </div>
   </section>
+  <section class="card">
+    <h2>Tiempo para responder</h2>
+    <div class="seg timer-seg" role="group" aria-label="Tiempo por pregunta">
+      ${[0,1,2,3,4,5].map(s=>`<button data-s="${s}" aria-pressed="${pr.timer===s}">${s?s+' s':'Sin límite'}</button>`).join('')}
+    </div>
+    <p class="hint" style="margin-top:10px">${pr.timer?'Si no responde en '+pr.timer+' segundo'+(pr.timer>1?'s':'')+', cuenta como fallo.'+(pr.type==='huecos'?' En «? × ? =» tiene el doble, porque escribe dos cifras.':''):'Puede pensar sin prisa.'}</p>
+  </section>
   <div class="stack">
-    <button class="btn btn-main" data-act="start" ${prefs.tables.length?'':'disabled'}>${prefs.tables.length?'Empezar · '+prefs.tables.length*10+' preguntas':'Elige al menos una tabla'}</button>
-    ${last?`<section class="card" style="margin:6px 0 0">
-      <h2>Último intento</h2>
-      <div class="last">
-        <div class="score c-${level(pct(last.correct,last.total))}">${last.correct}/${last.total}</div>
-        <div class="meta">${tablesLabel(last)}<br>${fmtDate(last.date)}</div>
-      </div>
-      <button class="btn btn-soft" style="margin-top:14px" data-act="hist">Ver los últimos ${h.length} intentos</button>
-    </section>`:''}
-  </div>`;
+    <button class="btn btn-main" data-act="start" ${pr.tables.length?'':'disabled'}>${pr.tables.length?'Empezar · '+size+(pr.type==='huecos'?' números':' preguntas'):'Elige al menos una tabla'}</button>
+    ${Object.keys(d.stats).length?`<button class="btn btn-soft" data-act="smart">🧠 Repaso inteligente · 15 preguntas</button>`:''}
+  </div>
+`;
   $app.querySelectorAll('.tbtn').forEach(b=>b.onclick=()=>{
     const t=+b.dataset.t;
-    prefs.tables=prefs.tables.includes(t)?prefs.tables.filter(x=>x!==t):[...prefs.tables,t].sort((a,b)=>a-b);
-    saveJSON(KEY_P,prefs);renderHome();
+    pr.tables=pr.tables.includes(t)?pr.tables.filter(x=>x!==t):[...pr.tables,t].sort((a,b)=>a-b);
+    save();renderHome();
   });
+  $app.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{pr.timer=+b.dataset.s;save();renderHome()});
   bindActs();
 }
 
-/* ---------- Juego ---------- */
-function startQuiz(questions,mode){
-  quiz={questions,idx:0,input:'',items:[],start:Date.now(),qStart:Date.now(),locked:false,mode:mode||'tablas'};
+/* ========== Perfiles (cambiar) ========== */
+function renderProfiles(){
+  view='profiles';
+  $app.innerHTML=`
+  <header class="top"><button class="icon-btn" data-act="home" aria-label="Volver">←</button><h1 class="display">¿Quién va a jugar?</h1></header>
+  <div class="plist">${db.profiles.map(p=>`<button data-pid="${p.id}" aria-current="${p.id===db.current}"><span class="e">${p.emoji}</span>${esc(p.name)}</button>`).join('')}</div>
+  <p class="hint">Para añadir o renombrar perfiles, entra en la zona de padres 🔒.</p>`;
+  $app.querySelectorAll('[data-pid]').forEach(b=>b.onclick=()=>{db.current=b.dataset.pid;save();renderMenu()});
+  bindActs();
+}
+
+/* ========== Juego ========== */
+function startQuiz(qs,mode,type){
+  if(!qs.length)return;
+  ensureAudio();
+  const tables=mode==='tablas'?cur().prefs.tables.slice():[...new Set(qs.filter(q=>q.t).map(q=>q.t))].sort((a,b)=>a-b);
+  quiz={qs,idx:0,input:'',inputs:['',''],active:0,items:[],review:[],revQueue:[],revTries:{},statQ:[],phase:'main',cur:null,
+    start:Date.now(),qStart:Date.now(),locked:false,mode,type,timer:cur().prefs.timer||0,tables,medalsBefore:medals(cur().stats)};
   renderQuiz();
 }
+function curQ(){return quiz.phase==='main'?quiz.qs[quiz.idx]:quiz.cur}
+function effTimer(q){return quiz.timer?(q.type==='huecos'?quiz.timer*2:quiz.timer):0}
 function renderQuiz(){
   view='quiz';
-  const q=quiz.questions[quiz.idx],n=quiz.questions.length;
+  const q=curQ(),inRev=quiz.phase==='review',n=quiz.qs.length;
+  let body='';
+  if(q.type==='normal'){
+    body=`<div class="op">${q.t} × ${q.f}</div><div class="answer" id="ans" aria-live="polite">&nbsp;</div>`;
+  }else if(q.type==='inverso'){
+    const slot=`<span class="slot empty" id="ans">?</span>`;
+    body=`<div class="op op-line">${q.hole==='l'?slot:q.t}<span class="x">×</span>${q.hole==='r'?slot:q.f}<span class="x">=</span>${q.p}</div>`;
+  }else{
+    const N=q.pairs.length,cp=q.pairs.find(([a,b])=>a!==b),comm=cp?' · '+cp[0]+' × '+cp[1]+' y '+cp[1]+' × '+cp[0]+' cuentan como una':'';
+    body=`<div class="op op-line"><span class="slot empty" id="h0" data-h="0">?</span><span class="x">×</span><span class="slot empty" id="h1" data-h="1">?</span><span class="x">=</span>${q.p}</div>
+    <p class="qhint">${N===1?'Encuentra la forma':'Encuentra las '+N+' formas'}${comm}</p>
+    <div class="found">${q.pairs.map(([a,b],k)=>q.state[k]==='ok'?`<span class="chip ok">${a} × ${b} ✓</span>`:q.state[k]==='miss'?`<span class="chip bad">${a} × ${b}</span>`:`<span class="chip pend">? × ?</span>`).join('')}</div>`;
+  }
   $app.innerHTML=`
   <header class="top">
     <button class="icon-btn" data-act="exit" aria-label="Salir">✕</button>
-    <div class="qcount">Pregunta ${quiz.idx+1} de ${n}</div>
+    <div class="qcount">${inRev?'Repaso de fallos · quedan '+(quiz.revQueue.length+1):'Pregunta '+(quiz.idx+1)+' de '+n}</div>
     <span style="width:44px"></span>
   </header>
-  <div class="progress"><i style="width:${pct(quiz.idx,n)}%"></i></div>
+  <div class="progress ${inRev?'rev':''}"><i style="width:${inRev?100:pct(quiz.idx,n)}%"></i></div>
   <div class="question">
-    <div class="op">${q.t} × ${q.f}</div>
-    <div class="answer" id="ans" aria-live="polite">${quiz.input||'&nbsp;'}</div>
+    ${body}
     <div class="feedback" id="fb"></div>
+    ${effTimer(q)?'<div class="timer" id="tbar"><i></i></div><div class="tsec" id="tsec"></div>':''}
   </div>
   <div class="pad">
     ${[1,2,3,4,5,6,7,8,9].map(d=>`<button data-k="${d}">${d}</button>`).join('')}
     <button class="k-del" data-k="del" aria-label="Borrar">⌫</button>
     <button data-k="0">0</button>
-    <button class="k-ok" data-k="ok">Comprobar</button>
+    <button class="k-ok" data-k="ok" id="kok">Comprobar</button>
+    <button class="k-pass" data-k="pass">No lo sé, pasar</button>
   </div>`;
   $app.querySelectorAll('.pad button').forEach(b=>b.onclick=()=>press(b.dataset.k));
-  bindActs();
+  $app.querySelectorAll('[data-h]').forEach(s=>s.onclick=()=>{if(!quiz.locked){quiz.active=+s.dataset.h;updateInput()}});
+  bindActs();updateInput();startTimer();
+}
+function updateInput(){
+  const q=curQ();
+  if(q.type==='normal'){document.getElementById('ans').innerHTML=quiz.input||'&nbsp;';return}
+  if(q.type==='inverso'){const a=document.getElementById('ans');a.textContent=quiz.input||'?';a.classList.toggle('empty',!quiz.input);return}
+  [0,1].forEach(k=>{const s=document.getElementById('h'+k);s.textContent=quiz.inputs[k]||'?';s.classList.toggle('empty',!quiz.inputs[k]);s.classList.toggle('active',!quiz.locked&&quiz.active===k)});
+  const ok=document.getElementById('kok');if(ok)ok.textContent=quiz.active===0?'Siguiente':'Comprobar';
 }
 function press(k){
-  if(!quiz||quiz.locked)return;
+  if(!quiz||quiz.locked||view!=='quiz')return;
+  ensureAudio();
+  const q=curQ();
+  if(k==='pass'){giveUp('pasa');return}
+  if(q.type==='huecos'){
+    const i=quiz.active;
+    if(k==='del'){if(quiz.inputs[i]===''&&i===1)quiz.active=0;else quiz.inputs[i]=quiz.inputs[i].slice(0,-1)}
+    else if(k==='ok'){
+      if(quiz.inputs[0]===''){quiz.active=0}
+      else if(quiz.inputs[1]===''){quiz.active=1}
+      else{checkPair();return}
+    }else if(quiz.inputs[i].length<2){
+      quiz.inputs[i]=(quiz.inputs[i]+k).replace(/^0+(?=\d)/,'');
+      if(i===0&&(+quiz.inputs[0]>1||quiz.inputs[0].length===2))quiz.active=1;
+    }
+    updateInput();return;
+  }
   if(k==='del')quiz.input=quiz.input.slice(0,-1);
-  else if(k==='ok'){check();return}
+  else if(k==='ok'){if(quiz.input!=='')answer(parseInt(quiz.input,10),'');return}
   else if(quiz.input.length<3)quiz.input=(quiz.input+k).replace(/^0+(?=\d)/,'');
-  document.getElementById('ans').innerHTML=quiz.input||'&nbsp;';
+  updateInput();
 }
-function check(){
-  if(quiz.input==='')return;
-  const q=quiz.questions[quiz.idx],given=parseInt(quiz.input,10),ans=q.t*q.f,ok=given===ans;
-  quiz.items.push({t:q.t,f:q.f,ans,given,ok,ms:Date.now()-quiz.qStart});
-  quiz.locked=true;
-  const a=document.getElementById('ans'),fb=document.getElementById('fb');
-  a.classList.add(ok?'ok':'bad');fb.className='feedback '+(ok?'ok':'bad');
-  fb.textContent=ok?'¡Correcto!':'Era '+ans;
-  setTimeout(next,ok?700:1800);
+function logItem(it){
+  quiz.statQ.push(it);
+  if(quiz.phase==='main'){
+    quiz.items.push(it);
+    if(!it.ok&&it.t&&db.settings.repeatFails){
+      const nq=it.type==='inverso'?mkQ(it.t,it.f,'inverso'):mkQ(it.t,it.f,'normal');
+      if(!quiz.revQueue.some(r=>r.t===nq.t&&r.f===nq.f&&r.type===nq.type))quiz.revQueue.push(nq);
+    }
+  }else{
+    quiz.review.push(it);
+    if(!it.ok){
+      const key=it.type+it.t+'x'+it.f,tries=(quiz.revTries[key]||0)+1;quiz.revTries[key]=tries;
+      if(tries<3)quiz.revQueue.push(mkQ(it.t,it.f,it.type));
+    }
+  }
 }
-function next(){
-  if(view!=='quiz')return;
-  quiz.idx++;
-  if(quiz.idx>=quiz.questions.length){finish();return}
-  quiz.input='';quiz.qStart=Date.now();quiz.locked=false;renderQuiz();
+function feedback(ok,msg){
+  const fb=document.getElementById('fb');fb.className='feedback '+(ok?'ok':'bad');fb.textContent=msg;fx(ok?'ok':'bad');
+}
+function answer(given,reason){
+  if(!quiz||quiz.locked)return;
+  stopTimer();
+  const q=curQ(),ok=given===q.expect;
+  const it={type:q.type,t:q.t,f:q.f,p:q.p,expect:q.expect,given,ok,ms:Date.now()-quiz.qStart};
+  if(q.hole)it.hole=q.hole;if(reason)it.skip=reason;
+  logItem(it);quiz.locked=true;
+  const a=document.getElementById('ans');
+  if(given===null)a.textContent='?';
+  a.classList.remove('empty');a.classList.add(ok?'ok':'bad');
+  const pre=reason==='tiempo'?'¡Se acabó el tiempo! ':'';
+  feedback(ok,ok?'¡Correcto!':pre+(q.type==='inverso'?'Era '+q.expect+' · '+q.t+' × '+q.f+' = '+q.p:'Era '+q.p));
+  setTimeout(advance,ok?700:1900);
+}
+function checkPair(){
+  const q=curQ(),a=+quiz.inputs[0],b=+quiz.inputs[1];
+  const idx=q.pairs.findIndex(([x,y])=>(x===a&&y===b)||(x===b&&y===a));
+  if(idx>=0&&q.state[idx]){toast('Esa ya la tienes. Busca otra.');quiz.inputs=['',''];quiz.active=0;updateInput();return}
+  stopTimer();quiz.locked=true;
+  const s0=document.getElementById('h0'),s1=document.getElementById('h1');
+  if(idx>=0){
+    q.state[idx]='ok';
+    logItem({type:'huecos',t:q.pairs[idx][0],f:q.pairs[idx][1],p:q.p,given:a+' × '+b,ok:true,ms:Date.now()-quiz.qStart});
+    s0.classList.add('ok');s1.classList.add('ok');
+    const left=q.state.filter(x=>!x).length;
+    feedback(true,left?'¡Bien! Te falta'+(left>1?'n '+left:' 1'):'¡Todas encontradas!');
+    setTimeout(advance,left?800:1000);
+  }else{
+    logItem({type:'huecos',t:null,f:null,p:q.p,given:a+' × '+b,ok:false,ms:Date.now()-quiz.qStart});
+    s0.classList.add('bad');s1.classList.add('bad');
+    feedback(false,'No: '+a+' × '+b+' = '+(a*b));
+    setTimeout(advance,1600);
+  }
+}
+function giveUp(reason){
+  if(!quiz||quiz.locked)return;
+  const q=curQ();
+  if(q.type!=='huecos'){answer(null,reason);return}
+  stopTimer();quiz.locked=true;
+  const pend=q.pairs.map((p,k)=>k).filter(k=>!q.state[k]);
+  const reveal=reason==='tiempo'?pend.slice(0,1):pend;
+  reveal.forEach(k=>{q.state[k]='miss';logItem({type:'huecos',t:q.pairs[k][0],f:q.pairs[k][1],p:q.p,given:null,skip:reason,ok:false,ms:Date.now()-quiz.qStart})});
+  const txt=reveal.map(k=>q.pairs[k][0]+' × '+q.pairs[k][1]).join(' y ');
+  feedback(false,(reason==='tiempo'?'¡Se acabó el tiempo! ':'')+(reveal.length>1?'Eran ':'Era ')+txt);
+  const s0=document.getElementById('h0'),s1=document.getElementById('h1');s0.classList.add('bad');s1.classList.add('bad');
+  setTimeout(advance,2000);
+}
+function advance(){
+  if(view!=='quiz'||!quiz)return;
+  quiz.locked=false;quiz.input='';quiz.inputs=['',''];quiz.active=0;quiz.qStart=Date.now();
+  const q=curQ();
+  if(q.type==='huecos'&&q.state.some(x=>!x)){renderQuiz();return}
+  if(quiz.phase==='main'){
+    quiz.idx++;
+    if(quiz.idx<quiz.qs.length){renderQuiz();return}
+    if(quiz.revQueue.length){quiz.phase='review';renderReviewIntro();return}
+    finish();return;
+  }
+  if(quiz.revQueue.length){quiz.cur=quiz.revQueue.shift();renderQuiz();return}
+  finish();
+}
+function renderReviewIntro(){
+  view='revintro';stopTimer();
+  const n=quiz.revQueue.length;
+  $app.innerHTML=`
+  <header class="top"><button class="icon-btn" data-act="exit" aria-label="Terminar">✕</button><h1 class="display" style="text-align:center">Repaso de fallos</h1><span style="width:44px"></span></header>
+  <div class="result-head"><div class="emoji">🔁</div>
+    <h2 class="display">¡Casi!</h2>
+    <p>Vamos a repasar ${n===1?'la que has fallado':'las '+n+' que has fallado'} hasta que te salgan.</p></div>
+  <button class="btn btn-main" data-act="rev-go">Vamos</button>`;
+  bindActs();
 }
 function finish(){
+  stopTimer();
+  const d=cur();
+  quiz.statQ.forEach(i=>{recordStat(d.stats,i.t,i.f,i.ok);if(i.type==='huecos'&&i.t&&i.t!==i.f)recordStat(d.stats,i.f,i.t,i.ok)});
   const items=quiz.items,correct=items.filter(i=>i.ok).length;
-  const a={id:Date.now(),date:new Date().toISOString(),mode:quiz.mode,
-    tables:[...new Set(items.map(i=>i.t))].sort((x,y)=>x-y),
-    total:items.length,correct,durationSec:Math.round((Date.now()-quiz.start)/1000),items};
-  addHist(a);lastResult=a;quiz=null;renderResults(a);
+  const a={id:Date.now(),date:new Date().toISOString(),mode:quiz.mode,type:quiz.type,timer:quiz.timer,tables:quiz.tables,
+    total:items.length,correct,durationSec:Math.round((Date.now()-quiz.start)/1000),items,review:quiz.review};
+  d.hist.push(a);d.hist=d.hist.slice(-db.settings.histMax);addDay(d);
+  const newMed=medals(d.stats).filter(t=>!quiz.medalsBefore.includes(t));
+  save();quiz=null;lastResult=Object.assign({},a,{newMed});
+  fx(newMed.length?'medal':'end');
+  renderResults(lastResult);
+}
+let tickT0=0;
+function stopTimer(){if(tickId){clearInterval(tickId);tickId=null}}
+function startTimer(){
+  stopTimer();
+  if(!quiz||quiz.locked)return;
+  const q=curQ(),secs=effTimer(q);if(!secs)return;
+  const total=secs*1000,t0=Date.now();
+  const wrap=document.getElementById('tbar'),bar=wrap.querySelector('i'),sec=document.getElementById('tsec');
+  const tick=()=>{
+    if(!quiz||quiz.locked||view!=='quiz'){stopTimer();return}
+    const left=Math.max(0,total-(Date.now()-t0));
+    bar.style.width=(left/total*100)+'%';sec.textContent=Math.ceil(left/1000)+' s';
+    wrap.classList.toggle('low',left<=1000);
+    if(left<=0){stopTimer();giveUp('tiempo')}
+  };
+  tick();tickId=setInterval(tick,50);
 }
 
-/* ---------- Resultados ---------- */
+/* ========== Resultados ========== */
 function headline(p){
   if(p===100)return['🏆','¡Perfecto!'];
   if(p>=80)return['⭐','¡Muy bien!'];
   if(p>=50)return['💪','¡Bien, sigue así!'];
   return['🌱','¡A seguir practicando!'];
 }
-function tableDetails(items,cls){
-  const groups={};items.forEach(i=>{(groups[i.t]=groups[i.t]||[]).push(i)});
-  return Object.keys(groups).sort((a,b)=>a-b).map((t,ix)=>{
-    const g=groups[t],c=g.filter(i=>i.ok).length,w=g.length-c;
-    return `<details class="tbl ${cls||''}" ${ix===0&&w?'open':''}>
-      <summary><span class="name">Tabla del ${t} · ${c}/${g.length}</span>
+function groupDetails(items){
+  const groups={};
+  items.forEach(i=>{const k=i.type==='huecos'?'p'+String(i.p).padStart(3,'0'):'t'+String(i.t).padStart(3,'0');(groups[k]=groups[k]||[]).push(i)});
+  return Object.keys(groups).sort().map((k,ix)=>{
+    const g=groups[k],c=g.filter(i=>i.ok).length,w=g.length-c;
+    const title=k[0]==='p'?'Número '+g[0].p:'Tabla del '+g[0].t;
+    return `<details class="tbl" ${ix===0&&w?'open':''}>
+      <summary><span class="name">${title} · ${c}/${g.length}</span>
         <span class="chip ok">${c} ✓</span>${w?`<span class="chip bad">${w} ✗</span>`:''}</summary>
       <ul class="ops">${g.map(opRow).join('')}</ul></details>`;
   }).join('');
 }
-function opRow(i){
-  return i.ok
-    ?`<li><span class="eq">${i.t} × ${i.f} = ${i.ans}</span><span class="mark ok">✓</span></li>`
-    :`<li class="wrong"><span class="eq">${i.t} × ${i.f} = <b>${i.ans}</b></span><span class="given">puso ${i.given}</span><span class="mark bad">✗</span></li>`;
+function shareText(a){
+  const p=prof(),w=a.items.filter(i=>!i.ok),rs=reviewSummary(a),pc=pct(a.correct,a.total);
+  let s=`📚 Tablas de multiplicar · ${p.emoji} ${p.name}\n📅 ${fmtDate(a.date)}\n📝 ${attemptLabel(a)}\n✅ ${a.correct} aciertos · ❌ ${a.total-a.correct} fallos · ${pc}%\n⏱️ ${fmtDur(a.durationSec)}`;
+  if(w.length)s+='\n\nFallos:\n'+w.slice(0,15).map(i=>'• '+plainRow(i)).join('\n')+(w.length>15?`\n…y ${w.length-15} más`:'');
+  if(rs)s+=`\n\n🔁 Repaso final: corrigió ${rs.fixed} de ${rs.total}`;
+  if(a.newMed&&a.newMed.length)s+=`\n🏅 ¡Nueva medalla! ${a.newMed.map(t=>'Tabla del '+t).join(', ')}`;
+  const stk=streak(cur().days);if(stk>1)s+=`\n🔥 ${stk} días seguidos practicando`;
+  return s;
+}
+function waNumber(){let n=(db.settings.wa||'').replace(/\D/g,'');if(n.length===9&&/^[6789]/.test(n))n='34'+n;if(n.startsWith('00'))n=n.slice(2);return n}
+function sendWA(a){
+  const url='https://wa.me/'+waNumber()+'?text='+encodeURIComponent(shareText(a));
+  const w=window.open(url,'_blank');if(!w)location.href=url;
 }
 function renderResults(a){
   view='results';
-  const p=pct(a.correct,a.total),[em,title]=headline(p),wrong=a.items.filter(i=>!i.ok);
+  const p=pct(a.correct,a.total),[em,title]=headline(p),wrong=a.items.filter(i=>!i.ok&&i.t),rs=reviewSummary(a);
   $app.innerHTML=`
   <header class="top">
     <button class="icon-btn" data-act="home" aria-label="Volver al inicio">✕</button>
-    <h1 class="display" style="text-align:center">Tablas de multiplicar</h1>
+    <h1 class="display" style="text-align:center">Resultado</h1>
     <button class="icon-btn" data-act="hist" aria-label="Ver historial">📊</button>
   </header>
   <div class="result-head"><div class="emoji">${em}</div>
     <h2 class="display">${title}</h2>
-    <p>${a.correct} aciertos de ${a.total} preguntas · ${fmtDur(a.durationSec)}</p></div>
+    <p>${a.correct} aciertos de ${a.total} ${a.type==='huecos'?'respuestas':'preguntas'} · ${fmtDur(a.durationSec)}</p></div>
   <div class="stats">
     <div class="stat"><b class="c-green">${a.correct}</b><span>Aciertos</span></div>
     <div class="stat"><b class="c-red">${a.total-a.correct}</b><span>Fallos</span></div>
     <div class="stat"><b>${p}%</b><span>Precisión</span></div>
   </div>
+  ${a.newMed&&a.newMed.length?`<div class="banner gold">🏅 ¡Nueva medalla! Ya dominas ${a.newMed.map(t=>'la tabla del '+t).join(', ')}.</div>`:''}
+  ${rs?`<div class="banner info">🔁 Repaso final: ha corregido ${rs.fixed} de ${rs.total}.</div>`:''}
   <div class="stack">
-    ${wrong.length?`<button class="btn btn-main" data-act="retry-fails">Practicar los fallos</button>`:''}
-    <button class="btn ${wrong.length?'btn-soft':'btn-main'}" data-act="again">Jugar otra vez</button>
-    <button class="btn btn-ghost" data-act="hist">Ver historial</button>
+    ${db.settings.offerSend?`<button class="btn btn-wa" data-act="send">Enviar resultado por WhatsApp</button>`:''}
+    ${wrong.length?`<button class="btn btn-soft" data-act="retry-fails">Practicar los fallos</button>`:''}
+    <button class="btn btn-main" data-act="again">Jugar otra vez</button>
   </div>
-  <h3 class="section-title">Detalle por tabla</h3>
-  ${tableDetails(a.items)}`;
+  <h3 class="section-title">Detalle</h3>
+  ${groupDetails(a.items)}
+  ${a.review&&a.review.length?`<h3 class="section-title">Repaso final</h3><details class="tbl"><summary><span class="name">${a.review.length} respuestas</span></summary><ul class="ops">${a.review.map(opRow).join('')}</ul></details>`:''}`;
   bindActs();
 }
 
-/* ---------- Historial ---------- */
+/* ========== Historial ========== */
 function chartSVG(h){
-  const W=320,H=170,top=22,bottom=30,left=8,right=8,n=h.length;
-  const slot=(W-left-right)/n,bw=Math.min(26,slot*.62),ch=H-top-bottom;
+  const n=h.length,slot=28,W=Math.max(320,n*slot+16),H=170,top=22,bottom=30,left=8,ch=H-top-bottom;
+  const sl=(W-left*2)/n,bw=Math.min(22,sl*.64);
   const col={green:'var(--green)',sun:'var(--sun)',red:'var(--red)'};
-  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Precisión de los últimos ${n} intentos">`;
-  [0,50,100].forEach(v=>{const y=top+ch-ch*v/100;
-    s+=`<line x1="${left}" x2="${W-right}" y1="${y}" y2="${y}" stroke="var(--line)" stroke-width="1" ${v===50?'stroke-dasharray="3 4"':''}/>`});
+  let s=`<svg viewBox="0 0 ${W} ${H}" width="${W}" style="width:${n*slot+16>320?W+'px':'100%'}" role="img" aria-label="Precisión de los últimos ${n} intentos">`;
+  [0,50,100].forEach(v=>{const y=top+ch-ch*v/100;s+=`<line x1="${left}" x2="${W-left}" y1="${y}" y2="${y}" stroke="var(--line)" stroke-width="1" ${v===50?'stroke-dasharray="3 4"':''}/>`});
   h.forEach((a,i)=>{
-    const p=pct(a.correct,a.total),bh=Math.max(3,ch*p/100),x=left+slot*i+(slot-bw)/2,y=top+ch-bh;
+    const p=pct(a.correct,a.total),bh=Math.max(3,ch*p/100),x=left+sl*i+(sl-bw)/2,y=top+ch-bh;
     s+=`<rect x="${x}" y="${y}" width="${bw}" height="${bh}" rx="5" fill="${col[level(p)]}"/>`;
-    s+=`<text x="${x+bw/2}" y="${y-6}" text-anchor="middle" font-size="11" font-weight="800" fill="var(--ink)" font-family="Nunito,sans-serif">${p}%</text>`;
-    s+=`<text x="${x+bw/2}" y="${H-10}" text-anchor="middle" font-size="10" fill="var(--muted)" font-family="Nunito,sans-serif">${fmtShort(a.date)}</text>`;
+    s+=`<text x="${x+bw/2}" y="${y-6}" text-anchor="middle" font-size="10.5" font-weight="800" fill="var(--ink)" font-family="Nunito,sans-serif">${p}</text>`;
+    s+=`<text x="${x+bw/2}" y="${H-10}" text-anchor="middle" font-size="9.5" fill="var(--muted)" font-family="Nunito,sans-serif">${fmtShort(a.date)}</text>`;
   });
   return s+'</svg>';
 }
+function mapHTML(){
+  const st=cur().stats;let s='<div class="map"><span class="h">×</span>';
+  for(let f=1;f<=10;f++)s+=`<span class="h">${f}</span>`;
+  for(let t=1;t<=10;t++){s+=`<span class="h">${t}</span>`;for(let f=1;f<=10;f++){const c=cellStatus(t,f,st);s+=`<button class="${c==='none'?'':'m-'+c}" data-cell="${t}x${f}" aria-label="${t} por ${f}"></button>`}}
+  return s+'</div>';
+}
 function renderHist(){
   view='hist';
-  const h=getHist();
+  const d=cur(),h=d.hist,p=prof();
+  const head=`<header class="top"><button class="icon-btn" data-act="home" aria-label="Volver">←</button>
+    <h1 class="display">Historial</h1><button class="pchip" data-act="profiles">${p.emoji} ${esc(p.name)} ▾</button></header>`;
   if(!h.length){
-    $app.innerHTML=`<header class="top"><button class="icon-btn" data-act="home" aria-label="Volver">←</button><h1 class="display">Historial</h1></header>
-    <div class="card empty"><div class="emoji">📋</div><h2>Todavía no hay intentos</h2>
-    <p class="hint">Cada ronda terminada se guarda aquí. Se conservan los últimos 10 intentos.</p>
+    $app.innerHTML=head+`<div class="card empty"><div class="emoji">📋</div><h2>Todavía no hay intentos</h2>
+    <p class="hint">Cada ronda terminada se guarda aquí.</p>
     <button class="btn btn-main" style="margin-top:16px" data-act="home">Empezar a practicar</button></div>`;
     bindActs();return;
   }
-  let totQ=0,totC=0,totMs=0,totSec=0;const ops={},byT={};
-  h.forEach(a=>{totQ+=a.total;totC+=a.correct;totSec+=a.durationSec||0;
-    a.items.forEach(i=>{totMs+=i.ms||0;
-      const k=i.t+'x'+i.f;ops[k]=ops[k]||{t:i.t,f:i.f,ans:i.ans,asked:0,fails:0};ops[k].asked++;if(!i.ok)ops[k].fails++;
-      byT[i.t]=byT[i.t]||{c:0,n:0};byT[i.t].n++;if(i.ok)byT[i.t].c++;})});
-  const avgP=pct(totC,totQ),avgQ=totQ?totMs/totQ/1000:0;
-  const top=Object.values(ops).filter(o=>o.fails>0).sort((a,b)=>b.fails-a.fails||(b.fails/b.asked)-(a.fails/a.asked)).slice(0,6);
-  const trend=h.length>=4?(()=>{const half=Math.floor(h.length/2);
-    const p1=pct(h.slice(0,half).reduce((s,a)=>s+a.correct,0),h.slice(0,half).reduce((s,a)=>s+a.total,0));
-    const p2=pct(h.slice(half).reduce((s,a)=>s+a.correct,0),h.slice(half).reduce((s,a)=>s+a.total,0));
-    const d=p2-p1;return d>=5?`📈 Va mejorando: ${p1}% → ${p2}% entre los primeros y los últimos intentos.`:d<=-5?`📉 Ha bajado un poco: ${p1}% → ${p2}%. Conviene repasar los fallos.`:`➡️ Se mantiene estable, alrededor del ${p2}%.`})():'';
-
-  $app.innerHTML=`
-  <header class="top"><button class="icon-btn" data-act="home" aria-label="Volver">←</button>
-    <h1 class="display">Historial</h1></header>
-  <p class="hint" style="margin:-4px 0 14px">Últimos ${h.length} intento${h.length>1?'s':''} en este dispositivo.</p>
+  let totQ=0,totC=0,totMs=0,nMs=0;
+  h.forEach(a=>{totQ+=a.total;totC+=a.correct;a.items.forEach(i=>{if(i.ms){totMs+=i.ms;nMs++}})});
+  const avgP=pct(totC,totQ),avgQ=nMs?totMs/nMs/1000:0,top=hardest(6),md=medals(d.stats),stk=streak(d.days);
+  let trend='';
+  if(h.length>=4){
+    const half=Math.floor(h.length/2),A=h.slice(0,half),B=h.slice(half);
+    const p1=pct(A.reduce((s,a)=>s+a.correct,0),A.reduce((s,a)=>s+a.total,0)),p2=pct(B.reduce((s,a)=>s+a.correct,0),B.reduce((s,a)=>s+a.total,0)),df=p2-p1;
+    trend=df>=5?`📈 Va mejorando: ${p1}% → ${p2}% entre los primeros y los últimos intentos.`:df<=-5?`📉 Ha bajado un poco: ${p1}% → ${p2}%. Conviene repasar los fallos.`:`➡️ Se mantiene estable, alrededor del ${p2}%.`;
+  }
+  $app.innerHTML=head+`
+  <p class="hint" style="margin:-2px 0 14px">Últimos ${h.length} intento${h.length>1?'s':''} (se guardan hasta ${db.settings.histMax}).</p>
   <div class="stats">
     <div class="stat"><b class="c-${level(avgP)}">${avgP}%</b><span>Precisión media</span></div>
-    <div class="stat"><b>${totC}/${totQ}</b><span>Aciertos totales</span></div>
-    <div class="stat"><b>${avgQ.toFixed(1)} s</b><span>Por pregunta</span></div>
+    <div class="stat"><b>${stk}</b><span>${stk===1?'Día seguido':'Días seguidos'}</span></div>
+    <div class="stat"><b>${avgQ.toFixed(1)} s</b><span>Por respuesta</span></div>
   </div>
   <section class="card"><h2>Evolución</h2>
-    <div class="chart-wrap">${chartSVG(h)}</div>
+    <div class="chart-wrap" id="chartw">${chartSVG(h)}</div>
     <div class="legend"><span><i style="background:var(--green)"></i>90% o más</span><span><i style="background:var(--sun)"></i>60–89%</span><span><i style="background:var(--red)"></i>Menos de 60%</span></div>
     ${trend?`<p class="hint" style="margin-top:12px">${trend}</p>`:''}
   </section>
+  <section class="card"><h2>Medallas · ${md.length} de 10</h2>
+    <div class="medals">${Array.from({length:10},(_,k)=>`<span class="medal ${md.includes(k+1)?'on':''}" title="Tabla del ${k+1}">${k+1}</span>`).join('')}</div>
+    <p class="hint" style="margin-top:10px">Se gana una medalla cuando acierta 3 veces seguidas cada operación de la tabla.</p>
+  </section>
+  <section class="card"><h2>Mapa de dominio</h2>
+    ${mapHTML()}
+    <div class="legend"><span><i style="background:var(--green)"></i>Dominada</span><span><i style="background:var(--sun)"></i>En camino</span><span><i style="background:var(--red)"></i>Le cuesta</span><span><i style="background:var(--line)"></i>Sin practicar</span></div>
+    <p class="hint" style="margin-top:8px">Toca una casilla para ver el detalle.</p>
+  </section>
   ${top.length?`<section class="card"><h2>Las que más le cuestan</h2>
-    <ul class="ops fails">${top.map(o=>`<li><span class="eq">${o.t} × ${o.f} = ${o.ans}</span><span class="cnt">falló ${o.fails} de ${o.asked}</span></li>`).join('')}</ul>
+    <ul class="ops fails">${top.map(o=>`<li><span class="eq">${o.t} × ${o.f} = ${o.p}</span><span class="cnt">falló ${o.fails} de ${o.a}</span></li>`).join('')}</ul>
     <button class="btn btn-main" style="margin-top:12px" data-act="practice-top">Practicar estas</button></section>`
-  :`<section class="card"><h2>Las que más le cuestan</h2><p class="hint">Ningún fallo en los últimos intentos. 🎉</p></section>`}
-  <section class="card"><h2>Precisión por tabla</h2>
-    <div class="bytable">${Object.keys(byT).sort((a,b)=>a-b).map(t=>{const p=pct(byT[t].c,byT[t].n);
-      return `<div><b class="c-${level(p)}">${p}%</b><span>Tabla del ${t}</span></div>`}).join('')}</div></section>
+  :`<section class="card"><h2>Las que más le cuestan</h2><p class="hint">Nada pendiente ahora mismo. 🎉</p></section>`}
   <h3 class="section-title">Intentos</h3>
-  ${h.slice().reverse().map((a,ix)=>{const p=pct(a.correct,a.total),w=a.items.filter(i=>!i.ok);
+  ${h.slice().reverse().map(a=>{const pc=pct(a.correct,a.total),w=a.items.filter(i=>!i.ok),nr=a.items.filter(i=>i.given==null).length,rs=reviewSummary(a);
     return `<details class="tbl att">
-      <summary><span class="name">${fmtDate(a.date)}<small>${tablesLabel(a)} · ${fmtDur(a.durationSec)}</small></span>
-        <span class="chip ${level(p)==='green'?'ok':level(p)==='sun'?'mid':'bad'}">${a.correct}/${a.total}</span></summary>
+      <summary><span class="name">${fmtDate(a.date)}<small>${attemptLabel(a)} · ${fmtDur(a.durationSec)}</small></span>
+        <span class="chip ${chipCls(pc)}">${a.correct}/${a.total}</span></summary>
       <div class="att-body">
         ${w.length?`<ul class="ops">${w.map(opRow).join('')}</ul>`:'<p>Sin fallos en este intento. 🎉</p>'}
-        <p>${a.correct} aciertos · ${w.length} fallos · ${p}% de precisión</p>
-      </div></details>`}).join('')}
-  <button class="btn btn-danger" style="margin-top:18px" data-act="clear">Borrar historial</button>`;
+        <p>${a.correct} aciertos · ${w.length} fallos${nr?' ('+nr+' sin responder)':''} · ${pc}%${rs?' · repaso: corrigió '+rs.fixed+' de '+rs.total:''}</p>
+      </div></details>`}).join('')}`;
+  const cw=document.getElementById('chartw');if(cw)cw.scrollLeft=cw.scrollWidth;
+  $app.querySelectorAll('[data-cell]').forEach(b=>b.onclick=()=>{
+    const [t,f]=b.dataset.cell.split('x').map(Number),s=cur().stats[t+'x'+f];
+    toast(s?`${t} × ${f} = ${t*f} · ${s.c} de ${s.a} bien · últimas: ${s.r.map(v=>v?'✓':'✗').join('')}`:`${t} × ${f} = ${t*f} · todavía sin practicar`);
+  });
   bindActs();
-  $app._top=top;
 }
 
-/* ---------- Acciones ---------- */
-function bindActs(){
-  $app.querySelectorAll('[data-act]').forEach(b=>b.onclick=()=>act(b.dataset.act));
+/* ========== PIN ========== */
+async function hashPin(pin){
+  try{if(crypto&&crypto.subtle){const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('tablas:'+pin));return 'h:'+Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('')}}catch(e){}
+  return 'p:'+pin;
 }
+function renderPin(mode){
+  view='pin';
+  if(mode)pinState={mode,val:'',first:''};
+  const ps=pinState;
+  const title=ps.mode==='enter'?'Introduce el PIN':ps.mode==='create2'?'Repite el PIN':'Crea un PIN de 4 cifras';
+  $app.innerHTML=`
+  <header class="top"><button class="icon-btn" data-act="${ps.mode==='enter'||!db.pin?'home':'parents-in'}" aria-label="Volver">←</button><h1 class="display">Zona de padres</h1></header>
+  <p class="hint" style="text-align:center;font-weight:800;color:var(--ink);font-size:1.1rem;margin-top:10px">${title}</p>
+  <div class="dots" id="dots">${[0,1,2,3].map(i=>`<i class="${ps.val.length>i?'on':''}"></i>`).join('')}</div>
+  <div class="pin-msg" id="pmsg"></div>
+  <div class="pad">
+    ${[1,2,3,4,5,6,7,8,9].map(d=>`<button data-p="${d}">${d}</button>`).join('')}
+    <span></span><button data-p="0">0</button><button class="k-del" data-p="del" aria-label="Borrar">⌫</button>
+  </div>
+  ${ps.mode==='enter'?'<p class="hint" style="margin-top:16px;text-align:center">¿Has olvidado el PIN? Solo se puede quitar borrando los datos del sitio en Chrome, y se perdería el progreso.</p>':''}`;
+  $app.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>pinPress(b.dataset.p));
+  bindActs();
+}
+async function pinPress(k){
+  const ps=pinState;if(!ps||ps.busy)return;
+  if(k==='del'){ps.val=ps.val.slice(0,-1);renderPin();return}
+  if(ps.val.length>=4)return;
+  ps.val+=k;renderPin();
+  if(ps.val.length<4)return;
+  ps.busy=true;
+  if(ps.mode==='enter'){
+    const h=await hashPin(ps.val);ps.busy=false;
+    if(h===db.pin){renderParents();return}
+    pinFail('PIN incorrecto');return;
+  }
+  if(ps.mode==='create1'){ps.busy=false;pinState={mode:'create2',val:'',first:ps.val};setTimeout(()=>renderPin(),150);return}
+  if(ps.mode==='create2'){
+    if(ps.val!==ps.first){ps.busy=false;pinState={mode:'create1',val:'',first:''};renderPin();document.getElementById('pmsg').textContent='No coinciden. Vuelve a empezar.';return}
+    db.pin=await hashPin(ps.val);save();ps.busy=false;toast('PIN guardado');renderParents();
+  }
+}
+function pinFail(msg){
+  pinState.val='';renderPin();
+  const d=document.getElementById('dots');d.classList.add('shake');document.getElementById('pmsg').textContent=msg;fx('bad');
+}
+
+/* ========== Zona de padres ========== */
+function renderParents(){
+  view='parents';pinState=null;
+  const s=db.settings,p=prof();
+  $app.innerHTML=`
+  <header class="top"><button class="icon-btn" data-act="home" aria-label="Salir de la zona de padres">←</button><h1 class="display">Zona de padres</h1></header>
+  <section class="card"><h2>Perfiles</h2>
+    ${db.profiles.map(pp=>`<div class="prow">
+      <button class="emo" data-emo="${pp.id}" aria-label="Cambiar icono">${pp.emoji}</button>
+      <input class="field" data-name="${pp.id}" value="${esc(pp.name)}" maxlength="20" aria-label="Nombre del perfil">
+      ${db.profiles.length>1?`<button class="del" data-delp="${pp.id}" aria-label="Eliminar perfil">🗑️</button>`:''}
+    </div>`).join('')}
+    <button class="btn btn-soft" data-act="addp">Añadir perfil</button>
+    <p class="hint" style="margin-top:10px">Toca el icono para cambiarlo. Cada perfil tiene su propio historial, medallas y racha.</p>
+  </section>
+  <section class="card"><h2>Aprendizaje</h2>
+    <label class="sw"><span>Repetir los fallos al final<small>Al terminar la ronda, vuelve a preguntar lo que ha fallado hasta 3 veces.</small></span><input type="checkbox" class="tg" data-set="repeatFails" ${s.repeatFails?'checked':''}></label>
+    <label class="sw"><span>Sonido</span><input type="checkbox" class="tg" data-set="sound" ${s.sound?'checked':''}></label>
+    <label class="sw"><span>Vibración</span><input type="checkbox" class="tg" data-set="vibrate" ${s.vibrate?'checked':''}></label>
+  </section>
+  <section class="card"><h2>Resultados por WhatsApp</h2>
+    <label class="sw"><span>Botón de enviar al terminar</span><input type="checkbox" class="tg" data-set="offerSend" ${s.offerSend?'checked':''}></label>
+    <input class="field" id="wa" type="tel" inputmode="tel" placeholder="Tu móvil, ej. 600 123 456" value="${esc(s.wa)}" style="margin-top:6px">
+    <p class="hint" style="margin-top:8px">Si lo dejas vacío, WhatsApp preguntará a quién enviarlo.</p>
+  </section>
+  <section class="card"><h2>Historial</h2>
+    <p class="hint" style="margin-bottom:10px">Intentos que se guardan por perfil</p>
+    <div class="seg three">${[10,30,100].map(n=>`<button data-hm="${n}" aria-pressed="${s.histMax===n}">${n}</button>`).join('')}</div>
+  </section>
+  <div class="stack">
+    <button class="btn btn-ghost" data-act="chpin">Cambiar PIN</button>
+    <button class="btn btn-danger" data-act="clear">Borrar historial y progreso de ${esc(p.emoji+' '+p.name)}</button>
+  </div>`;
+  $app.querySelectorAll('[data-set]').forEach(c=>c.onchange=()=>{s[c.dataset.set]=c.checked;save()});
+  const wa=document.getElementById('wa');wa.onchange=()=>{s.wa=wa.value.trim();save();toast('Número guardado')};
+  $app.querySelectorAll('[data-hm]').forEach(b=>b.onclick=()=>{
+    s.histMax=+b.dataset.hm;Object.values(db.data).forEach(d=>{d.hist=d.hist.slice(-s.histMax)});save();renderParents();
+  });
+  $app.querySelectorAll('[data-name]').forEach(i=>i.onchange=()=>{const pp=db.profiles.find(x=>x.id===i.dataset.name);pp.name=i.value.trim()||'Sin nombre';save()});
+  $app.querySelectorAll('[data-emo]').forEach(b=>b.onclick=()=>{const pp=db.profiles.find(x=>x.id===b.dataset.emo);pp.emoji=EMOJIS[(EMOJIS.indexOf(pp.emoji)+1)%EMOJIS.length];save();b.textContent=pp.emoji});
+  $app.querySelectorAll('[data-delp]').forEach(b=>b.onclick=()=>{
+    const pp=db.profiles.find(x=>x.id===b.dataset.delp);
+    if(!confirm('¿Eliminar el perfil «'+pp.name+'» y todo su progreso? No se puede deshacer.'))return;
+    db.profiles=db.profiles.filter(x=>x.id!==pp.id);delete db.data[pp.id];
+    if(db.current===pp.id)db.current=db.profiles[0].id;save();renderParents();
+  });
+  bindActs();
+}
+
+/* ========== Acciones ========== */
+function bindActs(){$app.querySelectorAll('[data-act]').forEach(b=>b.onclick=()=>act(b.dataset.act))}
 function act(a){
+  const d=cur();
   if(a==='hist')renderHist();
-  else if(a==='home')renderHome();
-  else if(a==='all'){prefs.tables=prefs.tables.length===10?[]:[1,2,3,4,5,6,7,8,9,10];saveJSON(KEY_P,prefs);renderHome()}
-  else if(a==='start'&&prefs.tables.length)startQuiz(buildQuestions(prefs.tables),'tablas');
-  else if(a==='exit'){if(confirm('¿Salir de la ronda? No se guardará en el historial.')){quiz=null;renderHome()}}
-  else if(a==='again'){startQuiz(buildQuestions(prefs.tables.length?prefs.tables:[1]),'tablas')}
-  else if(a==='retry-fails'&&lastResult){startQuiz(reviewQuestions(lastResult.items.filter(i=>!i.ok)),'repaso')}
-  else if(a==='practice-top'&&$app._top&&$app._top.length){startQuiz(reviewQuestions($app._top),'repaso')}
-  else if(a==='clear'){if(confirm('¿Borrar todo el historial? No se puede deshacer.')){saveJSON(KEY_H,[]);renderHist()}}
+  else if(a==='home')renderMenu();
+  else if(a==='setup')renderHome();
+  else if(a==='profiles')renderProfiles();
+  else if(a==='parents')renderPin(db.pin?'enter':'create1');
+  else if(a==='parents-in')renderParents();
+  else if(a==='chpin')renderPin('create1');
+  else if(a==='all'){d.prefs.tables=d.prefs.tables.length===10?[]:[1,2,3,4,5,6,7,8,9,10];save();renderHome()}
+  else if(a==='start'&&d.prefs.tables.length)startQuiz(buildRound(d.prefs.tables,d.prefs.type),'tablas',d.prefs.type);
+  else if(a==='smart'){const ops=smartOps(15);if(ops.length)startQuiz(shuffle(ops.map(o=>mkQ(o.t,o.f,d.prefs.type==='inverso'?'inverso':'normal'))),'inteligente',d.prefs.type==='inverso'?'inverso':'normal')}
+  else if(a==='again'){if(lastResult&&lastResult.mode!=='tablas'&&lastResult.mode){renderHome();return}startQuiz(buildRound(d.prefs.tables.length?d.prefs.tables:[1],d.prefs.type),'tablas',d.prefs.type)}
+  else if(a==='retry-fails'&&lastResult){
+    const seen={},qs=[];
+    lastResult.items.filter(i=>!i.ok&&i.t).forEach(i=>{const ty=i.type==='inverso'?'inverso':'normal',k=ty+i.t+'x'+i.f;if(!seen[k]){seen[k]=1;qs.push(mkQ(i.t,i.f,ty))}});
+    startQuiz(shuffle(qs),'repaso','normal');
+  }
+  else if(a==='practice-top'){const top=hardest(10);if(top.length)startQuiz(shuffle(top.map(o=>mkQ(o.t,o.f,'normal'))),'repaso','normal')}
+  else if(a==='send'&&lastResult)sendWA(lastResult);
+  else if(a==='rev-go'&&quiz){view='quiz';quiz.cur=quiz.revQueue.shift();quiz.qStart=Date.now();renderQuiz()}
+  else if(a==='exit'){
+    if(!quiz){renderHome();return}
+    stopTimer();
+    if(quiz.phase==='review'){if(confirm('¿Terminar el repaso? La ronda se guardará.'))finish();else if(view==='quiz'&&!quiz.locked)startTimer();return}
+    if(confirm('¿Salir de la ronda? No se guardará en el historial.')){quiz=null;renderHome()}
+    else if(quiz&&!quiz.locked){quiz.qStart=Date.now();startTimer()}
+  }
+  else if(a==='addp'){
+    const id=uid();db.profiles.push({id,name:'Perfil '+(db.profiles.length+1),emoji:EMOJIS[db.profiles.length%EMOJIS.length]});db.data[id]=emptyData();save();renderParents();
+    const inp=$app.querySelector(`[data-name="${id}"]`);if(inp){inp.focus();inp.select()}
+  }
+  else if(a==='clear'){
+    const p=prof();
+    if(confirm('¿Borrar el historial, las medallas y la racha de «'+p.name+'»? No se puede deshacer.')){const pr=d.prefs;db.data[db.current]=emptyData();db.data[db.current].prefs=pr;save();toast('Historial borrado');renderParents()}
+  }
 }
 document.addEventListener('keydown',e=>{
-  if(view!=='quiz')return;
-  if(/^[0-9]$/.test(e.key))press(e.key);
-  else if(e.key==='Backspace')press('del');
-  else if(e.key==='Enter')press('ok');
+  if(view==='quiz'){
+    if(/^[0-9]$/.test(e.key))press(e.key);
+    else if(e.key==='Backspace')press('del');
+    else if(e.key==='Enter'){e.preventDefault();press('ok')}
+  }else if(view==='pin'){
+    if(/^[0-9]$/.test(e.key))pinPress(e.key);else if(e.key==='Backspace')pinPress('del');
+  }
 });
-renderHome();
+renderMenu();
 if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))}
 })();
 </script>
